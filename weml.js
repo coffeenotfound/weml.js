@@ -288,6 +288,36 @@ Vec3.typeprototype = {};
 		},
 	};
 	
+// ## simd implementation ##
+	Vec3.typeprototype.simd = Object.assign(Object.create(Vec3.typeprototype.sisd), { // copy sisd prototype to ensure full api
+		mul: function(a, o) {
+			o = o || this;
+			SIMD.Float32x4.mul(SIMD.Float32x4.load3(this), SIMD.Float32x4.load3(a)).store3(o);
+			return o;
+		},
+		mulXYZ: function(x, y, z, o) {
+			o = o || this;
+			SIMD.Float32x4.mul(SIMD.Float32x4.load3(this), SIMD.Float32x4(x, y, z)).store3(o);
+			return o;
+		},
+		mulScalar: function(s, o) {
+			o = o || this;
+			SIMD.Float32x4.mul(SIMD.Float32x4.load3(this), SIMD.Float32x4.splat(3)).store3(o);
+			return o;
+		},
+		
+		muladd: function(a, b, o) {
+			o = o || this;
+			SIMD.Float32x4.add(SIMD.Float32x4.mul(SIMD.Float32x4.load3(this), SIMD.Float32x4.load3(a)), SIMD.Float32x4.load3(b)).store3(o);
+			return o;
+		},
+		muladdXYZ: function(ax, ay, az, bx, by, bz, o) {
+			o = o || this;
+			SIMD.Float32x4.add(SIMD.Float32x4.mul(SIMD.Float32x4.load3(this), SIMD.Float32x4(ax, ay, az)), SIMD.Float32x4(bx, by, bz)).store3(o);
+			return o;
+		},
+	});
+	
 	// select typeprototype
 	weml.selectTypeprototype(Vec3);
 })();

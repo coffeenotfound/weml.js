@@ -132,10 +132,11 @@ Vec3.typeprototype = {};
 		getZ: function() {
 			return this[2];
 		},
-		put: function(a) {
-			a[0] = this[0];
-			a[1] = this[1];
-			a[2] = this[2];
+		put: function(a, offset) {
+			offset = offset || 0;
+			a[0 + offset] = this[0];
+			a[1 + offset] = this[1];
+			a[2 + offset] = this[2];
 			return this;
 		},
 		

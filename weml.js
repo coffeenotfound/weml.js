@@ -564,7 +564,134 @@ Quat.typeprototype = {};
 // ## sisd implementation ##
 	Quat.typeprototype.sisd = {
 		
-	}
+		clone: function() {
+			var quat = new Quat();
+			quat.set(this);
+			return quat;
+		},
+		
+		set: function(a) {
+			this[0] = a[0];
+			this[1] = a[1];
+			this[2] = a[2];
+			this[3] = a[3];
+			return this;
+		},
+		setXYZW: function(x, y, z, w) {
+			this[0] = x;
+			this[1] = y;
+			this[2] = z;
+			this[3] = w;
+			return this;
+		},
+		
+		normalize: function(o) {
+			o = o || this;
+			var invNorm = 1.0 / Math.sqrt(this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);
+			o[0] = this[0] * invNorm;
+			o[1] = this[1] * invNorm;
+			o[2] = this[2] * invNorm;
+			o[3] = this[3] * invNorm;
+			return this;
+		},
+		
+		rotateLocalAxesXYZ: function(radx, rady, radz, o) {
+			o = o || this;
+			var thetaX = radx * 0.5;
+			var thetaY = rady * 0.5;
+			var thetaZ = radz * 0.5;
+			var thetaMagSq = thetaX * thetaX + thetaY * thetaY + thetaZ * thetaZ;
+			var s;
+			var dqX, dqY, dqZ, dqW;
+			
+			if(thetaMagSq * thetaMagSq / 24.0 < 1E-8) {
+				dqW = 1.0 - thetaMagSq * 0.5;
+				s = 1.0 - thetaMagSq / 6.0;
+			}
+			else {
+				var thetaMag = Math.sqrt(thetaMagSq);
+				var sin = Math.sin(thetaMag);
+				s = sin / thetaMag;
+				//dqW = Math.cosFromSin(sin, thetaMag);
+				dqW = Math.cos(thetaMag);
+			}
+			dqX = thetaX * s;
+			dqY = thetaY * s;
+			dqZ = thetaZ * s;
+			
+			/* Pre-multiplication */
+			o[0] = dqW * this[0] + dqX * this[3] + dqY * this[2] - dqZ * this[1];
+			o[1] = dqW * this[1] - dqX * this[2] + dqY * this[3] + dqZ * this[0];
+			o[2] = dqW * this[2] + dqX * this[1] - dqY * this[0] + dqZ * this[3];
+			o[3] = dqW * this[3] - dqX * this[0] - dqY * this[1] - dqZ * this[2];
+			return o;
+		},
+		
+		rotateTo: function(eye, center, o) {
+			o = o || this;
+			
+			var x = eye[1] * center[2] - eye[2] * center[1];
+			var y = eye[2] * center[0] - eye[0] * center[2];
+			var z = eye[0] * center[1] - eye[1] * center[0];
+			var w = Math.sqrt((eye[0]*eye[0] + eye[1]*eye[1] + eye[2]*eye[2]) *
+							(center[0]*center[0] + center[1]*center[1] + center[2]*center[2])) +
+							(eye[0] * center[0] + eye[1] * center[1] + eye[2] * center[2]);
+			//var invNorm = 1.0 / Math.sqrt(this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);
+			var invNorm = 1.0 / Math.sqrt(x*x + y*y + z*z + w*w);
+			
+			// skip for now and pray nothing shits the bed
+			/*
+			if (Float.isInfinite(invNorm)) {
+				// Rotation is ambiguous: Find appropriate rotation axis (1. try center. x +Z)
+				x = center.Y; y = -center.X; z = 0.0f; w = 0.0f;
+				invNorm = (float) (1.0 / Math.sqrt(x * x + y * y));
+				if (Float.isInfinite(invNorm)) {
+					// 2. try center. x +X
+					x = 0.0f; y = center.Z; z = -center.Y; w = 0.0f;
+					invNorm = (float) (1.0 / Math.sqrt(y * y + z * z));
+				}
+			}
+			*/
+			
+			x *= invNorm;
+			y *= invNorm;
+			z *= invNorm;
+			w *= invNorm;
+			
+			/* Multiply */
+			o[0] = this[3] * x + this[0] * w + this[1] * z - this[2] * y;
+			o[1] = this[3] * y - this[0] * z + this[1] * w + this[2] * x;
+			o[2] = this[3] * z + this[0] * y - this[1] * x + this[2] * w;
+			o[3] = this[3] * w - this[0] * x - this[1] * y - this[2] * z;
+			return o;
+		},
+		
+		transformVec3: function(a) {
+			var w2 = this[3] * this[3];
+			var x2 = this[0] * this[0];
+			var y2 = this[1] * this[1];
+			var z2 = this[2] * this[2];
+			var zw = this[2] * this[3];
+			var xy = this[0] * this[1];
+			var xz = this[0] * this[2];
+			var yw = this[1] * this[3];
+			var yz = this[1] * this[2];
+			var xw = this[0] * this[3];
+			var m00 = w2 + x2 - z2 - y2;
+			var m01 = xy + zw + zw + xy;
+			var m02 = xz - yw + xz - yw;
+			var m10 = -zw + xy - zw + xy;
+			var m11 = y2 - z2 + w2 - x2;
+			var m12 = yz + yz + xw + xw;
+			var m20 = yw + xz + xz + yw;
+			var m21 = yz + yz - xw - xw;
+			var m22 = z2 - y2 - x2 + w2;
+			a[0] = m00 * a[0] + m10 * a[1] + m20 * a[2];
+			a[1] = m01 * a[0] + m11 * a[1] + m21 * a[2];
+			a[2] = m02 * a[0] + m12 * a[1] + m22 * a[2];
+			return a;
+		},
+	};
 	
 	// select typeprototype
 	weml.selectTypeprototype(Quat);

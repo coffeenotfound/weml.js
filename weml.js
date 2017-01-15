@@ -8,6 +8,26 @@ var weml = {
 		const hasSIMD = window.SIMD !== undefined;
 		clazz.typeprototype._current = (hasSIMD ? clazz.typeprototype.simd : null) || clazz.typeprototype.sisd;
 	},
+	
+	toRadians: function(x) {
+		return x * (Math.PI / 180);
+	},
+	toDegrees: function(x) {
+		return x * (180 / Math.PI);
+	},
+	
+	rand(min, max) {
+		return (Math.random() * (max - min)) + min;
+	},
+	randVec3(min, max, o) {
+		o = o || new Vec3();
+		min = min || -1.0;
+		max = max || 1.0;
+		o[0] = this.rand(min, max);
+		o[1] = this.rand(min, max);
+		o[2] = this.rand(min, max);
+		return o;
+	},
 };
 
 

@@ -834,6 +834,94 @@ Mat4.typeprototype = {};
 			*/
 		},
 		
+		transpose: function(o) {
+			o = o || this;
+			var nm00 = this[00];
+			var nm01 = this[04];
+			var nm02 = this[08];
+			var nm03 = this[12];
+			var nm10 = this[01];
+			var nm11 = this[05];
+			var nm12 = this[09];
+			var nm13 = this[13];
+			var nm20 = this[02];
+			var nm21 = this[06];
+			var nm22 = this[10];
+			var nm23 = this[14];
+			var nm30 = this[03];
+			var nm31 = this[07];
+			var nm32 = this[11];
+			var nm33 = this[15];
+			o[00] = nm00;
+			o[01] = nm01;
+			o[02] = nm02;
+			o[03] = nm03;
+			o[04] = nm10;
+			o[05] = nm11;
+			o[06] = nm12;
+			o[07] = nm13;
+			o[08] = nm20;
+			o[09] = nm21;
+			o[10] = nm22;
+			o[11] = nm23;
+			o[12] = nm30;
+			o[13] = nm31;
+			o[14] = nm32;
+			o[15] = nm33;
+			return o;
+		},
+		invert: function(o) {
+			o = o || this;
+			var a = this[00] * this[05] - this[01] * this[04];
+			var b = this[00] * this[06] - this[02] * this[04];
+			var c = this[00] * this[07] - this[03] * this[04];
+			var d = this[01] * this[06] - this[02] * this[05];
+			var e = this[01] * this[07] - this[03] * this[05];
+			var f = this[02] * this[07] - this[03] * this[06];
+			var g = this[08] * this[13] - this[09] * this[12];
+			var h = this[08] * this[14] - this[10] * this[12];
+			var i = this[08] * this[15] - this[11] * this[12];
+			var j = this[09] * this[14] - this[10] * this[13];
+			var k = this[09] * this[15] - this[11] * this[13];
+			var l = this[10] * this[15] - this[11] * this[14];
+			var det = a * l - b * k + c * j + d * i - e * h + f * g;
+			det = 1.0 / det;
+			
+			var nm00 = ( this[05] * l - this[06] * k + this[07] * j) * det;
+			var nm01 = (-this[01] * l + this[02] * k - this[03] * j) * det;
+			var nm02 = ( this[13] * f - this[14] * e + this[15] * d) * det;
+			var nm03 = (-this[09] * f + this[10] * e - this[11] * d) * det;
+			var nm10 = (-this[04] * l + this[06] * i - this[07] * h) * det;
+			var nm11 = ( this[00] * l - this[02] * i + this[03] * h) * det;
+			var nm12 = (-this[12] * f + this[14] * c - this[15] * b) * det;
+			var nm13 = ( this[08] * f - this[10] * c + this[11] * b) * det;
+			var nm20 = ( this[04] * k - this[05] * i + this[07] * g) * det;
+			var nm21 = (-this[00] * k + this[01] * i - this[03] * g) * det;
+			var nm22 = ( this[12] * e - this[13] * c + this[15] * a) * det;
+			var nm23 = (-this[08] * e + this[09] * c - this[11] * a) * det;
+			var nm30 = (-this[04] * j + this[05] * h - this[06] * g) * det;
+			var nm31 = ( this[00] * j - this[01] * h + this[02] * g) * det;
+			var nm32 = (-this[12] * d + this[13] * b - this[14] * a) * det;
+			var nm33 = ( this[08] * d - this[09] * b + this[10] * a) * det;
+			o[00] = nm00;
+			o[01] = nm01;
+			o[02] = nm02;
+			o[03] = nm03;
+			o[04] = nm10;
+			o[05] = nm11;
+			o[06] = nm12;
+			o[07] = nm13;
+			o[08] = nm20;
+			o[09] = nm21;
+			o[10] = nm22;
+			o[11] = nm23;
+			o[12] = nm30;
+			o[13] = nm31;
+			o[14] = nm32;
+			o[15] = nm33;
+			return o;
+		},
+		
 		translate: function(a, o) {
 			o = o || this;
 			o[12] = this[00] * a[0] + this[04] * a[1] + this[08] * a[2] + this[12];
@@ -848,6 +936,54 @@ Mat4.typeprototype = {};
 			o[13] = this[01] * x + this[05] * y + this[09] * z + this[13];
 			o[14] = this[02] * x + this[06] * y + this[10] * z + this[14];
 			o[15] = this[03] * x + this[07] * y + this[11] * z + this[15];
+			return o;
+		},
+		
+		applyRotationQuat: function(a, o) {
+			o = o || this;
+			var w2 = a[3] * a[3];
+			var x2 = a[0] * a[0];
+			var y2 = a[1] * a[1];
+			var z2 = a[2] * a[2];
+			var zw = a[2] * a[3];
+			var xy = a[0] * a[1];
+			var xz = a[0] * a[2];
+			var yw = a[1] * a[3];
+			var yz = a[1] * a[2];
+			var xw = a[0] * a[3];
+			var rm00 = w2 + x2 - z2 - y2;
+			var rm01 = xy + zw + zw + xy;
+			var rm02 = xz - yw + xz - yw;
+			var rm10 = -zw + xy - zw + xy;
+			var rm11 = y2 - z2 + w2 - x2;
+			var rm12 = yz + yz + xw + xw;
+			var rm20 = yw + xz + xz + yw;
+			var rm21 = yz + yz - xw - xw;
+			var rm22 = z2 - y2 - x2 + w2;
+			var nm00 = this[00] * rm00 + this[04] * rm01 + this[08] * rm02;
+			var nm01 = this[01] * rm00 + this[05] * rm01 + this[09] * rm02;
+			var nm02 = this[02] * rm00 + this[06] * rm01 + this[10] * rm02;
+			var nm03 = this[03] * rm00 + this[07] * rm01 + this[11] * rm02;
+			var nm10 = this[00] * rm10 + this[04] * rm11 + this[08] * rm12;
+			var nm11 = this[01] * rm10 + this[05] * rm11 + this[09] * rm12;
+			var nm12 = this[02] * rm10 + this[06] * rm11 + this[10] * rm12;
+			var nm13 = this[03] * rm10 + this[07] * rm11 + this[11] * rm12;
+			o[08] = this[00] * rm20 + this[04] * rm21 + this[08] * rm22;
+			o[09] = this[01] * rm20 + this[05] * rm21 + this[09] * rm22;
+			o[10] = this[02] * rm20 + this[06] * rm21 + this[10] * rm22;
+			o[11] = this[03] * rm20 + this[07] * rm21 + this[11] * rm22;
+			o[00] = nm00;
+			o[01] = nm01;
+			o[02] = nm02;
+			o[03] = nm03;
+			o[04] = nm10;
+			o[05] = nm11;
+			o[06] = nm12;
+			o[07] = nm13;
+			o[12] = this[12];
+			o[13] = this[13];
+			o[14] = this[14];
+			o[15] = this[15];
 			return o;
 		},
 		

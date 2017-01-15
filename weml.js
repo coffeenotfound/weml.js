@@ -530,7 +530,7 @@ Vec4.typeprototype = {};
 // ### class Quat ###
 var Quat = function(x, y, z, w) {
 	var quat = weml.allocateArray(4);
-	Object.assign(mat, Quat.typeprototype._current);
+	Object.assign(quat, Quat.typeprototype._current);
 	quat[0] = x || 0;
 	quat[1] = y || 0;
 	quat[2] = z || 0;

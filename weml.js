@@ -321,3 +321,185 @@ Vec3.typeprototype = {};
 	// select typeprototype
 	weml.selectTypeprototype(Vec3);
 })();
+
+
+// ### class Vec4 ###
+var Vec4 = function(x, y, z, w) {
+	var vec = weml.allocateArray(4);
+	Object.assign(vec, Vec4.typeprototype._current);
+	vec[0] = x || 0;
+	vec[1] = y || 0;
+	vec[2] = z || 0;
+	vec[3] = w || 1;
+	return vec;
+};
+
+Vec4.typeprototype = {};
+(function() {
+// ## sisd implementation ##
+	Vec4.typeprototype.sisd = {
+		toString: function() {
+			return "Vec4[" + this[0] + ", " + this[1] + ", " + this[2] + ", " + this[3] + "]";
+		},
+		
+		clone: function() {
+			return new Vec4(this[0], this[1], this[2], this[3]);
+		},
+		
+		identity: function() {
+			return this.set(0, 0, 0, 1);
+		},
+		zero: function() {
+			return this.set(0, 0, 0, 0);
+		},
+		
+		set: function(a) {
+			this[0] = a[0];
+			this[1] = a[1];
+			this[2] = a[2];
+			this[3] = a[3];
+			return this;
+		},
+		setXYZW: function(x, y, z, w) {
+			this[0] = x;
+			this[1] = y;
+			this[2] = z;
+			this[3] = w;
+			return this;
+		},
+		setX: function(x) {
+			this[0] = x;
+			return this;
+		},
+		setY: function(y) {
+			this[1] = y;
+			return this;
+		},
+		setZ: function(z) {
+			this[2] = z;
+			return this;
+		},
+		setW: function(w) {
+			this[3] = w;
+			return this;
+		},
+		
+		put: function(a) {
+			a[0] = this[0];
+			a[1] = this[1];
+			a[2] = this[2];
+			a[3] = this[3];
+			return this;
+		},
+		get: function(o) {
+			o[0] = this[0];
+			o[1] = this[1];
+			o[2] = this[2];
+			o[3] = this[3];
+			return o;
+		},
+		getX: function() {
+			return this[0];
+		},
+		getY: function() {
+			return this[1];
+		},
+		getZ: function() {
+			return this[2];
+		},
+		getW: function() {
+			return this[3];
+		},
+		
+		add: function(a, o) {
+			o = o || this;
+			o[0] = this[0] + a[0];
+			o[1] = this[1] + a[1];
+			o[2] = this[2] + a[2];
+			o[3] = this[3] + a[3];
+			return o;
+		},
+		addXYZW: function(x, y, z, w, o) {
+			o = o || this;
+			o[0] = this[0] + x;
+			o[1] = this[1] + y;
+			o[2] = this[2] + z;
+			o[3] = this[3] + w;
+			return o;
+		},
+		addScalar: function(s, o) {
+			o = o || this;
+			this.addXYZW(s, s, s, s, o);
+			return o;
+		},
+		
+		sub: function(a, o) {
+			o = o || this;
+			o[0] = this[0] - a[0];
+			o[1] = this[1] - a[1];
+			o[2] = this[2] - a[2];
+			o[3] = this[3] - a[3];
+			return o;
+		},
+		subXYZW: function(x, y, z, w, o) {
+			o = o || this;
+			o[0] = this[0] - x;
+			o[1] = this[1] - y;
+			o[2] = this[2] - z;
+			o[3] = this[3] - w;
+			return o;
+		},
+		subScalar: function(s, o) {
+			o = o || this;
+			this.subXYZW(s, s, s, s, o);
+			return o;
+		},
+		
+		mul: function(a, o) {
+			o = o || this;
+			o[0] = this[0] * a[0];
+			o[1] = this[1] * a[1];
+			o[2] = this[2] * a[2];
+			o[3] = this[3] * a[3];
+			return o;
+		},
+		mulXYZW: function(x, y, z, w, o) {
+			o = o || this;
+			o[0] = this[0] * x;
+			o[1] = this[1] * y;
+			o[2] = this[2] * z;
+			o[3] = this[3] * w;
+			return o;
+		},
+		mulScalar: function(s, o) {
+			o = o || this;
+			mulXYZW(s, s, s, s, o);
+			return o;
+		},
+		
+		div: function(a, o) {
+			o = o || this;
+			o[0] = this[0] / a[0];
+			o[1] = this[1] / a[1];
+			o[2] = this[2] / a[2];
+			o[3] = this[3] / a[3];
+			return o;
+		},
+		divXYZW: function(x, y, z, w, o) {
+			o = o || this;
+			o[0] = this[0] / x;
+			o[1] = this[1] / y;
+			o[2] = this[2] / z;
+			o[3] = this[3] / w;
+			return o;
+		},
+		divScalar: function(s, o) {
+			o = o || this;
+			this.divXYZW(s, s, s, s, o);
+			return o;
+		},
+	};
+	
+	// select typeprototype
+	weml.selectTypeprototype(Vec4);
+})();

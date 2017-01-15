@@ -28,6 +28,15 @@ var weml = {
 		o[2] = this.rand(min, max);
 		return o;
 	},
+	randQuat(o) {
+		o = o || new Quat();
+		o[0] = this.rand(-1, 1);
+		o[1] = this.rand(-1, 1);
+		o[2] = this.rand(-1, 1);
+		o[3] = this.rand(-1, 1);
+		o.normalize();
+		return o;
+	},
 };
 
 

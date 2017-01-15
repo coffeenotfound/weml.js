@@ -250,9 +250,11 @@ Vec3.typeprototype = {};
 		normalize: function(o) {
 			o = o || this;
 			var invlength = this.invmagnitude();
-			o[0] = this[0] * invlength;
-			o[1] = this[1] * invlength;
-			o[2] = this[2] * invlength;
+			if(!Number.isNaN(invlength)) {
+				o[0] = this[0] * invlength;
+				o[1] = this[1] * invlength;
+				o[2] = this[2] * invlength;
+			}
 			return o;
 		},
 		

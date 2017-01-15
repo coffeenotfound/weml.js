@@ -505,6 +505,29 @@ Vec4.typeprototype = {};
 })();
 
 
+// ### class Quat ###
+var Quat = function(x, y, z, w) {
+	var quat = weml.allocateArray(4);
+	Object.assign(mat, Quat.typeprototype._current);
+	quat[0] = x || 0;
+	quat[1] = y || 0;
+	quat[2] = z || 0;
+	quat[3] = w || 1;
+	return quat;
+};
+
+Quat.typeprototype = {};
+(function() {
+// ## sisd implementation ##
+	Quat.typeprototype.sisd = {
+		
+	}
+	
+	// select typeprototype
+	weml.selectTypeprototype(Quat);
+})();
+
+
 // ### class Mat4 ###
 var Mat4 = function(values) {
 	var mat = weml.allocateArray(16);

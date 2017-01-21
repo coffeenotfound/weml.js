@@ -1090,7 +1090,7 @@ Mat4.typeprototype = {};
 			return o;
 		},
 		
-		translate: function(a, o) {
+		translateVec3: function(a, o) {
 			o = o || this;
 			o[12] = this[00] * a[0] + this[04] * a[1] + this[08] * a[2] + this[12];
 			o[13] = this[01] * a[0] + this[05] * a[1] + this[09] * a[2] + this[13];

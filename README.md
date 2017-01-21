@@ -4,7 +4,7 @@
 
 The syntax were inspired by and most of the math is based on [JOML, the awesome Java OpenGL Math Library](https://github.com/JOML-CI/JOML).
 
-**Please note that weml.js is still kinda work in progress. A lot of arithmetic operations (especially for Matrices) are not added yet and some types (Vec2, Mat3) are even missing entirely.**
+**Please note that weml.js is still kinda work in progress. A lot of operations (especially for Matrices) are not added yet and some types (Vec2, Mat3) are even missing entirely.**
 
 
 ## Design
@@ -59,7 +59,7 @@ var b = new Vec3(1, 2, 3) // [1, 2, 3]
 ```
 Simple stuff.
 
-Basic arithmetic operations between Vectors and even between Vectors and Scalars are just as easy!
+Basic operations between Vectors and even between Vectors and Scalars are just as easy!
 ```
 a.add(b.addScalar(2)).addXYZ(1,3,7);
 ```

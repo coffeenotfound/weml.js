@@ -136,6 +136,15 @@ Vec3.typeprototype = {};
 			this[2] = a[2];
 			return this;
 		},
+		setSwizzle: function(a, swizzlex, swizzley, swizzlez) {
+			var nx = a[swizzlex];
+			var ny = a[swizzley];
+			var nz = a[swizzlez];
+			this[0] = nx;
+			this[1] = ny;
+			this[2] = nz;
+			return this;
+		},
 		setXYZ: function(x, y, z) {
 			this[0] = x;
 			this[1] = y;

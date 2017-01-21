@@ -648,7 +648,37 @@ Quat.typeprototype = {};
 			return this;
 		},
 		
-		rotateLocalAxesXYZ: function(radx, rady, radz, o) {
+		rotateXYZ: function(radx, rady, radz, o) {
+			o = o || this;
+			var sx = Math.sin(radx * 0.5);
+			var cx = Math.cos(radx * 0.5);
+			var sy = Math.sin(rady * 0.5);
+			var cy = Math.cos(rady * 0.5);
+			var sz = Math.sin(radz * 0.5);
+			var cz = Math.cos(radz * 0.5);
+			
+			var cycz = cy * cz;
+			var sysz = sy * sz;
+			var sycz = sy * cz;
+			var cysz = cy * sz;
+			var w = cx * cycz - sx * sysz;
+			var x = sx * cycz + cx * sysz;
+			var y = cx * sycz - sx * cysz;
+			var z = cx * cysz + sx * sycz;
+			
+			// right-multiply
+			var nx = this[3] * x + this[0] * w + this[1] * z - this[2] * y;
+			var ny = this[3] * y - this[0] * z + this[1] * w + this[2] * x;
+			var nz = this[3] * z + this[0] * y - this[1] * x + this[2] * w;
+			var nw = this[3] * w - this[0] * x - this[1] * y - this[2] * z;
+			o[0] = nx;
+			o[1] = ny;
+			o[2] = nz;
+			o[3] = nw;
+			return o;
+		},
+		
+		rotateLocalXYZ: function(radx, rady, radz, o) {
 			o = o || this;
 			var thetaX = radx * 0.5;
 			var thetaY = rady * 0.5;

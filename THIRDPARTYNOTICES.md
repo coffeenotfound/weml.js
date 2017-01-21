@@ -1,4 +1,4 @@
-# JOML (https://github.com/JOML-CI/JOML)
+# weml.js is based on code from JOML (https://github.com/JOML-CI/JOML)
 
 The MIT License (MIT)
 

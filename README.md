@@ -10,7 +10,7 @@ The syntax were inspired by and most of the math is based on [JOML, the awesome 
 All types in **weml** are based on typed Arrays. That allows seamless integration with WebGL and ultra fast SIMD implementations without
 internal conversions.
 
-The syntax were designed to be practical and inuitive, and they are awesome!
+The syntax were designed to be practical and intuitive, and they are awesome!
 Here, check this out:
 ```
 var a = new Vec3(1, 2, 3);

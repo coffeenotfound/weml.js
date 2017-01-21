@@ -781,6 +781,35 @@ Quat.typeprototype = {};
 		},
 		*/
 		
+		slerp: function(a, alpha, o) {
+			o = o || this;
+			var cosom = this[0] * a[0] + this[1] * a[1] + this[2] * a[2] + this[3] * a[3];
+			var absCosom = Math.abs(cosom);
+			var scale0, scale1;
+			if (1.0 - absCosom > 1.0E-6) {
+				var sinSqr = 1.0 - absCosom * absCosom;
+				var sinom = 1.0 / Math.sqrt(sinSqr);
+				var omega = Math.atan2(sinSqr * sinom, absCosom);
+				scale0 = Math.sin((1.0 - alpha) * omega) * sinom;
+				scale1 = Math.sin(alpha * omega) * sinom;
+			}
+			else {
+				scale0 = 1.0 - alpha;
+				scale1 = alpha;
+			}
+			
+			scale1 = cosom >= 0.0 ? scale1 : -scale1;
+			var nx = scale0 * this[0] + scale1 * a[0];
+			var ny = scale0 * this[1] + scale1 * a[1];
+			var nz = scale0 * this[2] + scale1 * a[2];
+			var nw = scale0 * this[3] + scale1 * a[3];
+			o[0] = nx;
+			o[1] = ny;
+			o[2] = nz;
+			o[3] = nw;
+			return o;
+		},
+		
 		lerp: function(a, alpha, o) {
 			
 		},

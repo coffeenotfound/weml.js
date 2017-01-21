@@ -35,6 +35,13 @@ var weml = {
 		clazz.typeprototype._current = (hasSIMD ? clazz.typeprototype.simd : null) || clazz.typeprototype.sisd;
 	},
 	
+	modmod: function(x, y) {
+		return ((x % n) + n) % n;
+	},
+	radmod: function(x) {
+		return this.modmod(x + Math.PI, Math.PI*2) - Math.PI;
+	},
+	
 	toRadians: function(x) {
 		return x * (Math.PI / 180);
 	},

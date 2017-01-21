@@ -710,8 +710,28 @@ Quat.typeprototype = {};
 			return o;
 		},
 		
+		rotateAroundAxisXYZ: function(axisx, axisy, axisz, angle, o) {
 		rotateTo: function(eye, center, o) {
 			o = o || this;
+			var hangle = angle * 0.5;
+			var sinAngle = Math.sin(hangle);
+			var invVLength = 1.0 / Math.sqrt(axisx * axisx + axisy * axisy + axisz * axisz);
+			
+			var rx = axisx * invVLength * sinAngle;
+			var ry = axisy * invVLength * sinAngle;
+			var rz = axisz * invVLength * sinAngle;
+			var rw = Math.cos(hangle);
+			
+			var nx = this[3] * rx + this[0] * rw + this[1] * rz - this[2] * ry;
+			var ny = this[3] * ry - this[0] * rz + this[1] * rw + this[2] * rx;
+			var nz = this[3] * rz + this[0] * ry - this[1] * rx + this[2] * rw;
+			var nw = this[3] * rw - this[0] * rx - this[1] * ry - this[2] * rz;
+			this[0] = nx;
+			this[1] = ny;
+			this[2] = nz;
+			this[3] = nw;
+			return o;
+		},
 			
 			var x = eye[1] * center[2] - eye[2] * center[1];
 			var y = eye[2] * center[0] - eye[0] * center[2];

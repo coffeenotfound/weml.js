@@ -1,3 +1,5 @@
-# weml.js
+# Weml.js - WebGL Math Library
 
-JavaScript vector and matrix math library; "port" of [JOML](https://github.com/JOML-CI/JOML)
+**Weml.js** is JavaScript linear algebra **We**bGL **M**ath **L**ibrary with intuitive syntax, seamless integration with WebGL and (ultra) fast SISD and SIMD implementations.
+
+The syntax were been inspired by and most of the math is based on [JOML, the awesome Java OpenGL Math Library](https://github.com/JOML-CI/JOML).

@@ -711,7 +711,6 @@ Quat.typeprototype = {};
 		},
 		
 		rotateAroundAxisXYZ: function(axisx, axisy, axisz, angle, o) {
-		rotateTo: function(eye, center, o) {
 			o = o || this;
 			var hangle = angle * 0.5;
 			var sinAngle = Math.sin(hangle);
@@ -732,10 +731,14 @@ Quat.typeprototype = {};
 			this[3] = nw;
 			return o;
 		},
+		
 		/** TODO: */
 		rotateAroundLocalAxisXYZ: function(axisx, axisy, axisz, angle, o) {
 			
 		},
+		
+		rotateTo: function(eye, center, o) {
+			o = o || this;
 			var x = eye[1] * center[2] - eye[2] * center[1];
 			var y = eye[2] * center[0] - eye[0] * center[2];
 			var z = eye[0] * center[1] - eye[1] * center[0];

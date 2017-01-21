@@ -775,6 +775,16 @@ Quat.typeprototype = {};
 			return o;
 		},
 		
+		/*
+		lookAt: function(eye, center, up) {
+			o = o || this;
+		},
+		*/
+		
+		lerp: function(a, alpha, o) {
+			
+		},
+		
 		transformVec3: function(a) {
 			var w2 = this[3] * this[3];
 			var x2 = this[0] * this[0];

@@ -732,7 +732,10 @@ Quat.typeprototype = {};
 			this[3] = nw;
 			return o;
 		},
+		/** TODO: */
+		rotateAroundLocalAxisXYZ: function(axisx, axisy, axisz, angle, o) {
 			
+		},
 			var x = eye[1] * center[2] - eye[2] * center[1];
 			var y = eye[2] * center[0] - eye[0] * center[2];
 			var z = eye[0] * center[1] - eye[1] * center[0];

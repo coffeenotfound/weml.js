@@ -815,16 +815,30 @@ Quat.typeprototype = {};
 		},
 		
 		transformVec3: function(a) {
-			var w2 = this[3] * this[3];
 			var x2 = this[0] * this[0];
 			var y2 = this[1] * this[1];
 			var z2 = this[2] * this[2];
+			var w2 = this[3] * this[3];
 			var zw = this[2] * this[3];
 			var xy = this[0] * this[1];
 			var xz = this[0] * this[2];
 			var yw = this[1] * this[3];
 			var yz = this[1] * this[2];
 			var xw = this[0] * this[3];
+			
+			var m00 = 2 * (0.5 - z2 - w2);
+			var m01 = 2 * (yz - xw);
+			var m02 = 2 * (yw + xz);
+			
+			var m10 = 2 * (yz + xw);
+			var m11 = 2 * (0.5 - y2 - w2);
+			var m12 = 2 * (zw - xy);
+			
+			var m20 = 2 * (yw - xz);
+			var m21 = 2 * (zw + xy);
+			var m22 = 2 * (0.5 - y2 - z2);
+			
+			/*
 			var m00 = w2 + x2 - z2 - y2;
 			var m01 = xy + zw + zw + xy;
 			var m02 = xz - yw + xz - yw;
@@ -834,9 +848,15 @@ Quat.typeprototype = {};
 			var m20 = yw + xz + xz + yw;
 			var m21 = yz + yz - xw - xw;
 			var m22 = z2 - y2 - x2 + w2;
-			a[0] = m00 * a[0] + m10 * a[1] + m20 * a[2];
-			a[1] = m01 * a[0] + m11 * a[1] + m21 * a[2];
-			a[2] = m02 * a[0] + m12 * a[1] + m22 * a[2];
+			*/
+			
+			// column-major mat3 * vec3
+			var nx = m00 * a[0] + m10 * a[1] + m20 * a[2];
+			var ny = m01 * a[0] + m11 * a[1] + m21 * a[2];
+			var nz = m02 * a[0] + m12 * a[1] + m22 * a[2];
+			a[0] = nx;
+			a[1] = ny;
+			a[2] = nz;
 			return a;
 		},
 	};

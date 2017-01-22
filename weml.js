@@ -50,6 +50,8 @@ var weml = {
 	},
 	
 	rand(min, max) {
+		min = min || 0;
+		max = max || 1;
 		return (Math.random() * (max - min)) + min;
 	},
 	randVec3(min, max, o) {

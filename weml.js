@@ -656,6 +656,24 @@ Quat.typeprototype = {};
 			return this;
 		},
 		
+		invert: function(o) {
+			o = o || this;
+			var invNorm = 1.0 / (this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);
+			o[0] = -this[0] * invNorm;
+			o[1] = -this[1] * invNorm;
+			o[2] = -this[2] * invNorm;
+			o[3] = this[3] * invNorm;
+			return o;
+		},
+		
+		conjugate: function(o) {
+			o = o || this;
+			o[0] = -this[0];
+			o[1] = -this[1];
+			o[2] = -this[2];
+			return o;
+		},
+		
 		rotateXYZ: function(radx, rady, radz, o) {
 			o = o || this;
 			var sx = Math.sin(radx * 0.5);

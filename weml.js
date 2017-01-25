@@ -664,6 +664,21 @@ Quat.typeprototype = {};
 			return this;
 		},
 		
+		identity: function() {
+			this[0] = 0;
+			this[1] = 0;
+			this[2] = 0;
+			this[3] = 1;
+			return this;
+		},
+		zero: function() {
+			this[0] = 0;
+			this[1] = 0;
+			this[2] = 0;
+			this[3] = 0;
+			return this;
+		},
+		
 		normalize: function(o) {
 			o = o || this;
 			var invNorm = 1.0 / Math.sqrt(this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);

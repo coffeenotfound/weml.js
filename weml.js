@@ -823,6 +823,22 @@ Quat.typeprototype = {};
 		},
 		
 		transformVec3: function(a) {
+			// I hope this, finally, is the correct formula (https://blog.molecular-matters.com/2013/05/24/a-faster-quaternion-vector-multiplication/)
+			//	t = 2 * cross(q.xyz, v)
+			//	v' = v + q.w * t + cross(q.xyz, t)
+			
+			var tx = 2.0 * (a[1] * this[2] - a[2] * this[1]);
+			var ty = 2.0 * (a[2] * this[0] - a[0] * this[2]);
+			var tz = 2.0 * (a[0] * this[1] - a[1] * this[0]);
+			
+			a[0] = a[0] + tx*this[3] + (ty * this[2] - tz * this[1]);
+			a[1] = a[1] + ty*this[3] + (tz * this[0] - tx * this[2]);
+			a[2] = a[2] + tz*this[3] + (tx * this[1] - ty * this[0]);
+			return a;
+		}
+		
+		/*
+		transformVec3: function(a) {
 			var x2 = this[0] * this[0];
 			var y2 = this[1] * this[1];
 			var z2 = this[2] * this[2];
@@ -846,17 +862,15 @@ Quat.typeprototype = {};
 			var m21 = 2 * (zw + xy);
 			var m22 = 2 * (0.5 - y2 - z2);
 			
-			/*
-			var m00 = w2 + x2 - z2 - y2;
-			var m01 = xy + zw + zw + xy;
-			var m02 = xz - yw + xz - yw;
-			var m10 = -zw + xy - zw + xy;
-			var m11 = y2 - z2 + w2 - x2;
-			var m12 = yz + yz + xw + xw;
-			var m20 = yw + xz + xz + yw;
-			var m21 = yz + yz - xw - xw;
-			var m22 = z2 - y2 - x2 + w2;
-			*/
+			//var m00 = w2 + x2 - z2 - y2;
+			//var m01 = xy + zw + zw + xy;
+			//var m02 = xz - yw + xz - yw;
+			//var m10 = -zw + xy - zw + xy;
+			//var m11 = y2 - z2 + w2 - x2;
+			//var m12 = yz + yz + xw + xw;
+			//var m20 = yw + xz + xz + yw;
+			//var m21 = yz + yz - xw - xw;
+			//var m22 = z2 - y2 - x2 + w2;
 			
 			// column-major mat3 * vec3
 			var nx = m00 * a[0] + m10 * a[1] + m20 * a[2];
@@ -867,6 +881,7 @@ Quat.typeprototype = {};
 			a[2] = nz;
 			return a;
 		},
+		*/
 	};
 	
 	// select typeprototype

@@ -390,6 +390,24 @@ Vec3.typeprototype = {};
 			o.addXYZ(x, y, z).normalize();
 			return o;
 		},
+		
+		clampLength: function(min, max, o) {
+			o = o || this;
+			var lensq = this.magnitudesq();
+			if(lensq < min*min) {
+				var invlen = 1.0 / Math.sqrt(lensq);
+				o[0] = (this[0] * invlen) * min;
+				o[1] = (this[1] * invlen) * min;
+				o[2] = (this[2] * invlen) * min;
+			}
+			else if(lensq > max*max) {
+				var invlen = 1.0 / Math.sqrt(lensq);
+				o[0] = (this[0] * invlen) * max;
+				o[1] = (this[1] * invlen) * max;
+				o[2] = (this[2] * invlen) * max;
+			}
+			return o;
+		},
 	};
 	
 // ## simd implementation ##

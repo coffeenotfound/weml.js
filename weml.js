@@ -124,11 +124,11 @@ Vec3.typeprototype = {};
 		},
 		
 		identity: function() {
-			this.set(0, 0, 0);
+			this.setXYZ(0, 0, 0);
 			return this;
 		},
 		zero: function() {
-			this.set(0, 0, 0);
+			this.setXYZ(0, 0, 0);
 			return this;
 		},
 		

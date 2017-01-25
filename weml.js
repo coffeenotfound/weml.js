@@ -304,16 +304,22 @@ Vec3.typeprototype = {};
 		
 		cross: function(a, o) {
 			o = o || this;
-			this[0] = this[1] * a[2] - this[2] * a[1];
-			this[1] = this[2] * a[0] - this[0] * a[2];
-			this[2] = this[0] * a[1] - this[1] * a[0];
+			var nx = this[1] * a[2] - this[2] * a[1];
+			var ny = this[2] * a[0] - this[0] * a[2];
+			var nz = this[0] * a[1] - this[1] * a[0];
+			o[0] = nx;
+			o[1] = ny;
+			o[2] = nz;
 			return o;
 		},
 		crossXYZ: function(x, y, z, o) {
 			o = o || this;
-			this[0] = this[1] * z - this[2] * y;
-			this[1] = this[2] * x - this[0] * z;
-			this[2] = this[0] * y - this[1] * x;
+			var nx = this[1] * z - this[2] * y;
+			var ny = this[2] * x - this[0] * z;
+			var nz = this[0] * y - this[1] * x;
+			o[0] = nx;
+			o[1] = ny;
+			o[2] = nz;
 			return o;
 		},
 		

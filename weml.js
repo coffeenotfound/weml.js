@@ -1230,6 +1230,39 @@ Mat4.typeprototype = {};
 			o[11] = nm23;
 			return o;
 		},
+		
+		ortho: function(left, right, bottom, top, near, far, o) {
+			o = o || this;
+			
+			// calculate right matrix elements
+			var rm00 = 2.0 / (right - left);
+			var rm11 = 2.0 / (top - bottom);
+			var rm22 = 2.0 / (near - far);
+			var rm30 = (left + right) / (left - right);
+			var rm31 = (top + bottom) / (bottom - top);
+			var rm32 = (far + near) / (near - far);
+			
+			// perform optimized multiplication
+			// compute the last column first, because other columns do not depend on it
+			o[12] = this[00] * rm30 + this[04] * rm31 + this[08] * rm32 + this[12];
+			o[13] = this[01] * rm30 + this[05] * rm31 + this[09] * rm32 + this[13];
+			o[14] = this[02] * rm30 + this[06] * rm31 + this[10] * rm32 + this[14];
+			o[15] = this[03] * rm30 + this[07] * rm31 + this[11] * rm32 + this[15];
+			o[00] = this[00] * rm00;
+			o[01] = this[01] * rm00;
+			o[02] = this[02] * rm00;
+			o[03] = this[03] * rm00;
+			o[04] = this[04] * rm11;
+			o[05] = this[05] * rm11;
+			o[06] = this[06] * rm11;
+			o[07] = this[07] * rm11;
+			o[08] = this[08] * rm22;
+			o[09] = this[09] * rm22;
+			o[10] = this[10] * rm22;
+			o[11] = this[11] * rm22;
+			
+			return o;
+		},
 	};
 	
 	// select typeprototype

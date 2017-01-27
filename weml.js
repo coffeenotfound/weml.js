@@ -947,19 +947,21 @@ Quat.typeprototype = {};
 			
 		},
 		
-		transformVec3: function(a) {
+		transformVec3: function(a, o) {
 			// I hope this, finally, is the correct formula (https://blog.molecular-matters.com/2013/05/24/a-faster-quaternion-vector-multiplication/)
 			//	t = 2 * cross(q.xyz, v)
 			//	v' = v + q.w * t + cross(q.xyz, t)
+			
+			o = o || a;
 			
 			var tx = 2.0 * (a[1] * this[2] - a[2] * this[1]);
 			var ty = 2.0 * (a[2] * this[0] - a[0] * this[2]);
 			var tz = 2.0 * (a[0] * this[1] - a[1] * this[0]);
 			
-			a[0] = a[0] + tx*this[3] + (ty * this[2] - tz * this[1]);
-			a[1] = a[1] + ty*this[3] + (tz * this[0] - tx * this[2]);
-			a[2] = a[2] + tz*this[3] + (tx * this[1] - ty * this[0]);
-			return a;
+			o[0] = a[0] + tx*this[3] + (ty * this[2] - tz * this[1]);
+			o[1] = a[1] + ty*this[3] + (tz * this[0] - tx * this[2]);
+			o[2] = a[2] + tz*this[3] + (tx * this[1] - ty * this[0]);
+			return o;
 		}
 		
 		/*

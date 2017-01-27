@@ -895,6 +895,25 @@ Quat.typeprototype = {};
 		},
 		*/
 		
+		diff: function(a, o) {
+			o = o || this;
+			var invNorm = 1.0 / (this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);
+			var x = -this[0] * invNorm;
+			var y = -this[1] * invNorm;
+			var z = -this[2] * invNorm;
+			var w = this[3] * invNorm;
+			
+			var nx = w * a[0] + x * a[3] + y * a[2] - z * a[1];
+			var ny = w * a[1] - x * a[2] + y * a[3] + z * a[0];
+			var nz = w * a[2] + x * a[1] - y * a[0] + z * a[3];
+			var nw = w * a[3] - x * a[0] - y * a[1] - z * a[2];
+			o[0] = nx;
+			o[1] = ny;
+			o[2] = nz;
+			o[3] = nw;
+			return o;
+		},
+		
 		slerp: function(a, alpha, o) {
 			o = o || this;
 			var cosom = this[0] * a[0] + this[1] * a[1] + this[2] * a[2] + this[3] * a[3];

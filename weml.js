@@ -694,6 +694,46 @@ Quat.typeprototype = {};
 			return this;
 		},
 		
+		mul: function(a, o) {
+			o = o || this;
+			// post-multiply
+			var nx = this[3] * a[0] + this[0] * a[3] + this[1] * a[2] - this[2] * a[1];
+			var ny = this[3] * a[1] - this[0] * a[2] + this[1] * a[3] + this[2] * a[0];
+			var nz = this[3] * a[2] + this[0] * a[1] - this[1] * a[0] + this[2] * a[3];
+			var nw = this[3] * a[3] - this[0] * a[0] - this[1] * a[1] - this[2] * a[2];
+			o[0] = nx;
+			o[1] = ny;
+			o[2] = nz;
+			o[3] = nw;
+			return o;
+		},
+		mulXYZW: function(x, y, z, w, o) {
+			o = o || this;
+			// post-multiply
+			var nx = this[3] * x + this[0] * w + this[1] * z - this[2] * a[1];
+			var ny = this[3] * y - this[0] * z + this[1] * w + this[2] * a[0];
+			var nz = this[3] * z + this[0] * y - this[1] * x + this[2] * a[3];
+			var nw = this[3] * w - this[0] * x - this[1] * y - this[2] * a[2];
+			o[0] = nx;
+			o[1] = ny;
+			o[2] = nz;
+			o[3] = nw;
+			return o;
+		},
+		mulScalar: function(s, o) {
+			o = o || this;
+			// post-multiply
+			var nx = this[3] * s + this[0] * s + this[1] * s - this[2] * a[1];
+			var ny = this[3] * s - this[0] * s + this[1] * s + this[2] * a[0];
+			var nz = this[3] * s + this[0] * s - this[1] * s + this[2] * a[3];
+			var nw = this[3] * s - this[0] * s - this[1] * s - this[2] * a[2];
+			o[0] = nx;
+			o[1] = ny;
+			o[2] = nz;
+			o[3] = nw;
+			return o;
+		},
+		
 		normalize: function(o) {
 			o = o || this;
 			var invNorm = 1.0 / Math.sqrt(this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);

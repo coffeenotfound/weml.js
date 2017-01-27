@@ -408,6 +408,21 @@ Vec3.typeprototype = {};
 			}
 			return o;
 		},
+		
+		lerp: function(a, t, o) {
+			o = o || this;
+			o[0] = this[0] + (a[0] - this[0]) * t;
+			o[1] = this[1] + (a[1] - this[1]) * t;
+			o[2] = this[2] + (a[2] - this[2]) * t;
+			return o;
+		},
+		lerpXYZ: function(x, y, z, o) {
+			o = o || this;
+			o[0] = this[0] + (x - this[0]) * t;
+			o[1] = this[1] + (y - this[1]) * t;
+			o[2] = this[2] + (z - this[2]) * t;
+			return o;
+		},
 	};
 	
 // ## simd implementation ##

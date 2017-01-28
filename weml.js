@@ -759,6 +759,7 @@ Quat.typeprototype = {};
 			o[0] = -this[0];
 			o[1] = -this[1];
 			o[2] = -this[2];
+			o[3] = this[3];
 			return o;
 		},
 		

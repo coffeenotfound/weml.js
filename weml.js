@@ -958,14 +958,13 @@ Quat.typeprototype = {};
 			//	v' = v + q.w * t + cross(q.xyz, t)
 			
 			o = o || a;
+			var tx = 2.0 * (this[1] * a[2] - this[2] * a[1]);
+			var ty = 2.0 * (this[2] * a[0] - this[0] * a[2]);
+			var tz = 2.0 * (this[0] * a[1] - this[1] * a[0]);
 			
-			var tx = 2.0 * (a[1] * this[2] - a[2] * this[1]);
-			var ty = 2.0 * (a[2] * this[0] - a[0] * this[2]);
-			var tz = 2.0 * (a[0] * this[1] - a[1] * this[0]);
-			
-			o[0] = a[0] + tx*this[3] + (ty * this[2] - tz * this[1]);
-			o[1] = a[1] + ty*this[3] + (tz * this[0] - tx * this[2]);
-			o[2] = a[2] + tz*this[3] + (tx * this[1] - ty * this[0]);
+			o[0] = a[0] + tx*this[3] + (this[1] * tz - this[2] * ty);
+			o[1] = a[1] + ty*this[3] + (this[2] * tx - this[0] * tz);
+			o[2] = a[2] + tz*this[3] + (this[0] * ty - this[1] * tx);
 			return o;
 		},
 	};

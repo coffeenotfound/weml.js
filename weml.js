@@ -746,7 +746,7 @@ Quat.typeprototype = {};
 		
 		invert: function(o) {
 			o = o || this;
-			var invNorm = 1.0 / (this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);
+			var invNorm = 1.0 / this.norm();
 			o[0] = -this[0] * invNorm;
 			o[1] = -this[1] * invNorm;
 			o[2] = -this[2] * invNorm;
@@ -760,6 +760,10 @@ Quat.typeprototype = {};
 			o[1] = -this[1];
 			o[2] = -this[2];
 			return o;
+		},
+		
+		norm: function() {
+			return (this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);
 		},
 		
 		rotateXYZ: function(radx, rady, radz, o) {
@@ -897,7 +901,7 @@ Quat.typeprototype = {};
 		
 		diff: function(a, o) {
 			o = o || this;
-			var invNorm = 1.0 / (this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);
+			var invNorm = 1.0 / this.norm();
 			var x = -this[0] * invNorm;
 			var y = -this[1] * invNorm;
 			var z = -this[2] * invNorm;

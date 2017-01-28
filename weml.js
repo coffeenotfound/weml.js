@@ -736,12 +736,12 @@ Quat.typeprototype = {};
 		
 		normalize: function(o) {
 			o = o || this;
-			return this;
 			var invMag = 1.0 / Math.sqrt(this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);
 			o[0] = this[0] * invMag;
 			o[1] = this[1] * invMag;
 			o[2] = this[2] * invMag;
 			o[3] = this[3] * invMag;
+			return o;
 		},
 		
 		invert: function(o) {

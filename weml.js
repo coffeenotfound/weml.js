@@ -275,12 +275,12 @@ Vec3.typeprototype = {};
 		
 		muladd: function(a, b, o) {
 			o = o || this;
-			o.mul(a).add(b);
+			this.mul(a, o).add(b);
 			return o;
 		},
 		muladdXYZ: function(ax, ay, az, bx, by, bz, o) {
 			o = o || this;
-			o.mulXYZ(ax, ay, az).addXYZ(bx, by, bz);
+			this.mulXYZ(ax, ay, az, o).add(bx, by, bz);
 			return o;
 		},
 		

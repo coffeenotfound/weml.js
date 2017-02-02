@@ -31,7 +31,7 @@ var weml = {
 	},
 	
 	selectTypeprototype: function(clazz) {
-		const hasSIMD = window.SIMD !== undefined;
+		var hasSIMD = window.SIMD !== undefined;
 		clazz.typeprototype._current = (hasSIMD ? clazz.typeprototype.simd : null) || clazz.typeprototype.sisd;
 	},
 	
@@ -49,12 +49,12 @@ var weml = {
 		return x * (180 / Math.PI);
 	},
 	
-	rand(min, max) {
+	rand: function(min, max) {
 		min = min || 0;
 		max = max || 1;
 		return (Math.random() * (max - min)) + min;
 	},
-	randVec3(min, max, o) {
+	randVec3: function(min, max, o) {
 		o = o || new Vec3();
 		min = min || -1.0;
 		max = max || 1.0;
@@ -63,7 +63,7 @@ var weml = {
 		o[2] = this.rand(min, max);
 		return o;
 	},
-	randQuat(o) {
+	randQuat: function(o) {
 		o = o || new Quat();
 		o[0] = this.rand(-1, 1);
 		o[1] = this.rand(-1, 1);
@@ -1289,7 +1289,7 @@ Mat4.typeprototype = {};
 				rm32 = ((zZeroToOne ? 1.0f : 2.0f) - e) * far;
 			} else {
 			*/
-			const zZeroToOne = false;
+			var zZeroToOne = false;
 			rm22 = (zZeroToOne ? far : far + near) / (near - far);
 			rm32 = (zZeroToOne ? far : far + far) * near / (near - far);
 			/*

@@ -2,7 +2,10 @@
   "name": "weml.js",
   "version": "0.1.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run lint && npm run compile-dist | npm run gen-docs",
+	"lint": "jshint --verbose \"weml.js\"",
+    "compile-dist": "uglifyjs \"weml.js\" -m -c -o \"dist/weml.min.js\" | uglifyjs \"weml.js\" -b -o \"dist/weml.js\"",
+	"gen-docs": "jsdoc \"weml.js\" -d \"docs\""
   },
   "repository": {
     "type": "git",
@@ -13,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/coffeenotfound/weml.js/issues"
   },
-  "homepage": "https://github.com/coffeenotfound/weml.js#readme"
+  "homepage": "https://github.com/coffeenotfound/weml.js#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "jshint": "^2.9.4",
+    "uglifyjs": "^2.4.10",
+    "jsdoc": "^3.4.3"
+  }
 }

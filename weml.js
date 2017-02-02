@@ -49,12 +49,12 @@ var weml = {
 		return x * (180 / Math.PI);
 	},
 	
-	rand(min, max) {
+	rand: function(min, max) {
 		min = min || 0;
 		max = max || 1;
 		return (Math.random() * (max - min)) + min;
 	},
-	randVec3(min, max, o) {
+	randVec3: function(min, max, o) {
 		o = o || new Vec3();
 		min = min || -1.0;
 		max = max || 1.0;
@@ -63,7 +63,7 @@ var weml = {
 		o[2] = this.rand(min, max);
 		return o;
 	},
-	randQuat(o) {
+	randQuat: function(o) {
 		o = o || new Quat();
 		o[0] = this.rand(-1, 1);
 		o[1] = this.rand(-1, 1);

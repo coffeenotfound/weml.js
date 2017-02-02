@@ -590,13 +590,43 @@ Vec3.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * Calculates the dot product of this vector and the given vector and returns it.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @returns {Number} the result
+		 */
 		dot: function(a) {
 			return this[0]*a[0] + this[1]*a[1] + this[2]*a[2];
 		},
+		
+		/**
+		 * Calculates the dot product of this vector and the given vector components and returns it.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @returns {Number} the result
+		 */
 		dotXYZ: function(x, y, z) {
 			return this[0]*x + this[1]*y + this[2]*z;
 		},
 		
+		
+		/**
+		 * Normalizes this vector and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		normalize: function(o) {
 			o = o || this;
 			var invlength = this.invmagnitude();
@@ -608,6 +638,17 @@ Vec3.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * Calculates the cross product of this vector and the given vector and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		cross: function(a, o) {
 			o = o || this;
 			var nx = this[1] * a[2] - this[2] * a[1];
@@ -618,6 +659,19 @@ Vec3.typeprototype = {};
 			o[2] = nz;
 			return o;
 		},
+		
+		/**
+		 * Calculates the cross product of this vector and the given vector and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} x
+		 * @param {Vec3} y
+		 * @param {Vec3} z
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		crossXYZ: function(x, y, z, o) {
 			o = o || this;
 			var nx = this[1] * z - this[2] * y;
@@ -629,31 +683,103 @@ Vec3.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * Calculates the magnitude (length) of this vector and returns it.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @returns {Number} the result
+		 */
 		magnitude: function() {
 			return Math.sqrt(this[0]*this[0] + this[1]*this[1] + this[2]*this[2]);
 		},
+		
+		/**
+		 * Calculates the squared magnitude (length) of this vector and returns it.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @returns {Number} the result
+		 */
 		magnitudesq: function() {
 			return this[0]*this[0] + this[1]*this[1] + this[2]*this[2];
 		},
+		
+		/**
+		 * Calculates the inverted magnitude (length) of this vector and returns it.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @returns {Number} the result
+		 */
 		invmagnitude: function() {
 			return 1.0 / this.magnitude();
 		},
+		
+		/**
+		 * Calculates the inverted square-magnitude (length) of this vector and returns it.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @returns {Number} the result
+		 */
 		invmagnitudesq: function() {
 			return 1.0 / this.magnitudesq();
 		},
 		
+		
+		/**
+		 * Calculates the distance between this vector and the given vector and returns it.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @returns {Number} the result
+		 */
 		dist: function(a) {
 			return Math.sqrt(this.distsq(a));
 		},
+		
+		/**
+		 * Calculates the distance between this vector and the given vector and returns it.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @returns {Number} the result
+		 */
 		distXYZ: function(x, y, z) {
 			return Math.sqrt(this.distsqXYZ(x, y, z));
 		},
+		
+		/**
+		 * Calculates the squared distance between this vector and the given vector and returns it.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @returns {Number} the result
+		 */
 		distsq: function(a) {
 			var dx = this[0] - a[0];
 			var dy = this[1] - a[1];
 			var dz = this[2] - a[2];
 			return dx*dx + dy*dy + dz*dz;
 		},
+		
+		/**
+		 * Calculates the squared distance between this vector and the given vector and returns it.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @returns {Number} the result
+		 */
 		distsqXYZ: function(x, y, z) {
 			var dx = this[0] - x;
 			var dy = this[1] - y;
@@ -661,6 +787,16 @@ Vec3.typeprototype = {};
 			return dx*dx + dy*dy + dz*dz;
 		},
 		
+		
+		/**
+		 * Negates this vector and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		negate: function(o) {
 			o = o || this;
 			o[0] = -this[0];
@@ -669,6 +805,17 @@ Vec3.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * Reflects this vector around the given normal vector and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} normal
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		reflect: function(normal, o) {
 			o = o || this;
 			var dot = this.dot(normal);
@@ -677,6 +824,19 @@ Vec3.typeprototype = {};
 			o[2] = this[2] - (dot + dot) * normal[2];
 			return o;
 		},
+		
+		/**
+		 * Reflects this vector around the given normal vector and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} normalx
+		 * @param {Number} normaly
+		 * @param {Number} normalz
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		reflectXYZ: function(x, y, z, o) {
 			o = o || this;
 			var dot = this.dotXYZ(x, y, z);
@@ -686,17 +846,47 @@ Vec3.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * Calculates the half vector of this vector and the given vector and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		half: function(a, o) {
 			o = o || this;
 			o.add(a).normalize();
 			return o;
 		},
+		
+		/**
+		 * Calculates the half vector of this vector and the given vector and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		halfXYZ: function(x, y, z, o) {
 			o = o || this;
 			o.addXYZ(x, y, z).normalize();
 			return o;
 		},
 		
+		/**
+		 * not working
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 */
 		clampLength: function(min, max, o) {
 			o = o || this;
 			var lensq = this.magnitudesq();
@@ -715,6 +905,18 @@ Vec3.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * Linearly inerpolates this vector to the given vector by the given alpha and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @param {Number} t
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		lerp: function(a, t, o) {
 			o = o || this;
 			o[0] = this[0] + (a[0] - this[0]) * t;
@@ -722,6 +924,20 @@ Vec3.typeprototype = {};
 			o[2] = this[2] + (a[2] - this[2]) * t;
 			return o;
 		},
+		
+		/**
+		 * Linearly inerpolates this vector to the given vector by the given alpha and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} x
+		 * @param {Vec3} y
+		 * @param {Vec3} z
+		 * @param {Number} t
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		lerpXYZ: function(x, y, z, o) {
 			o = o || this;
 			o[0] = this[0] + (x - this[0]) * t;

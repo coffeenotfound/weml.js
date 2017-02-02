@@ -25,17 +25,36 @@
 		SOFTWARE.
 */
 
+/**
+ * @global
+ * @namespace
+ * @static
+ * The main weml class. Contains some util functions.
+ * @author Jan Katzer [@coffeenotfound]{@link https://github.com/coffeenotfound}
+ */
 var weml = {
+	/**
+	 * @private
+	 */
 	allocateArray: function(size) {
 		return new Float32Array(size);
 	},
 	
+	/**
+	 * @private
+	 */
 	selectTypeprototype: function(clazz) {
 		var hasSIMD = window.SIMD !== undefined;
 		clazz.typeprototype._current = (hasSIMD ? clazz.typeprototype.simd : null) || clazz.typeprototype.sisd;
 	},
 	
-	modmod: function(x, y) {
+	/**
+	 * Does a 'proper' mod (`((x % n) + n) % n`) so that the result will always be greater than or equal to zero.
+	 * @function
+	 * @param {number} x
+	 * @param {number} n
+	 */
+	modmod: function(x, n) {
 		return ((x % n) + n) % n;
 	},
 	radmod: function(x) {
@@ -337,6 +356,7 @@ Vec3.typeprototype = {};
 			a[2 + offset] = this[2];
 			return this;
 		},
+		
 		
 		add: function(a, o) {
 			o = o || this;

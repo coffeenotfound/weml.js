@@ -97,7 +97,14 @@ $(function() {
 });
 
 
-// ### class Vec3 ###
+/**
+ * Constructs a new {@link Vec3} with the given values.
+ * @class
+ * @param {Number} [x=0] - The initial x component of the vector
+ * @param {Number} [y=0] - The initial y component of the vector
+ * @param {Number} [z=0] - The initial z component of the vector
+ * @returns {Vec3}
+ */
 var Vec3 = function(x, y, z) {
 	var vec = weml.allocateArray(3);
 	Object.assign(vec, Vec3.typeprototype._current);
@@ -115,29 +122,78 @@ Vec3.typeprototype = {};
 			return "Vec3[" + this[0] + ", " + this[1] + ", " + this[2] +"]";
 		},
 		
+		/**
+		 * Returns the number of components of this vector. A {@link Vec3} will always return <code>3</code>.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @returns {Number}
+		 */
 		size: function() {
 			return 3;
 		},
 		
+		/**
+		 * Returns a new Vec3 with the same values as this.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @returns {Vec3}
+		 */
 		clone: function() {
 			return new Vec3(this[0], this[1], this[2]);
 		},
 		
+		/**
+		 * Sets this to identity <code>(0, 0, 0)</code> and returns itself.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @returns {Vec3} itself
+		 */
 		identity: function() {
 			this.setXYZ(0, 0, 0);
 			return this;
 		},
+		
+		/**
+		 * Sets this vector to <code>(0, 0, 0)</code> and returns itself.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @returns {Vec3} itself
+		 */
 		zero: function() {
 			this.setXYZ(0, 0, 0);
 			return this;
 		},
 		
+		/**
+		 * Sets this vector to be equal with the given {@link Vec3} and returns itself.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @returns {Vec3} itself
+		 */
 		set: function(a) {
 			this[0] = a[0];
 			this[1] = a[1];
 			this[2] = a[2];
 			return this;
 		},
+		
+		/**
+		 * Sets this vector to a swizzled form of the given {@link Vec3} and returns itself.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @param {Number} swizzlex
+		 * @param {Number} swizzley
+		 * @param {Number} swizzlez
+		 * @returns {Vec3} itself
+		 */
 		setSwizzle: function(a, swizzlex, swizzley, swizzlez) {
 			var nx = a[swizzlex];
 			var ny = a[swizzley];
@@ -147,44 +203,133 @@ Vec3.typeprototype = {};
 			this[2] = nz;
 			return this;
 		},
+		
+		/**
+		 * Sets this vector to the given values and returns itself.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @returns {Vec3} itself
+		 */
 		setXYZ: function(x, y, z) {
 			this[0] = x;
 			this[1] = y;
 			this[2] = z;
 			return this;
 		},
+		
+		/**
+		 * Sets this vector's x component and returns itself.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @returns {Vec3} itself
+		 */
 		setX: function(x) {
 			this[0] = x;
 			return this;
 		},
+		
+		/**
+		 * Sets this vector's y component and returns itself.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} y
+		 * @returns {Vec3} itself
+		 */
 		setY: function(y) {
 			this[1] = y;
 			return this;
 		},
+		
+		/**
+		 * Sets this vector's z component and returns itself.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} z
+		 * @returns {Vec3} itself
+		 */
 		setZ: function(z) {
 			this[2] = z;
 			return this;
 		},
+		
+		/**
+		 * Sets all of this vector's components to the given scalar and returns itself.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} s
+		 * @returns {Vec3} itself
+		 */
 		setScalar: function(s) {
 			this.setXYZ(s, s, s);
 			return this;
 		},
 		
+		/**
+		 * Sets the given vector equal to this vector and returns the given vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} o
+		 * @returns {Vec3} the given vector <code>o</code>
+		 */
 		get: function(o) {
 			o[0] = this[0];
 			o[1] = this[1];
 			o[2] = this[2];
 			return o;
 		},
+		
+		/**
+		 * Returns this vector's x component.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @returns {Number} this vector's x component
+		 */
 		getX: function() {
 			return this[0];
 		},
+		
+		/**
+		 * Returns this vector's x component.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @returns {Number} this vector's y component
+		 */
 		getY: function() {
 			return this[1];
 		},
+		
+		/**
+		 * Returns this vector's x component.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @returns {Number} this vector's z component
+		 */
 		getZ: function() {
 			return this[2];
 		},
+		
+		/**
+		 * Puts this vector into the given vector or typed array and returns itself.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @param {Number} offset
+		 * @returns {Vec3} itself
+		 */
 		put: function(a, offset) {
 			offset = offset || 0;
 			a[0 + offset] = this[0];

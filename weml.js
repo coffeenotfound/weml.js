@@ -31,7 +31,7 @@ var weml = {
 	},
 	
 	selectTypeprototype: function(clazz) {
-		const hasSIMD = window.SIMD !== undefined;
+		var hasSIMD = window.SIMD !== undefined;
 		clazz.typeprototype._current = (hasSIMD ? clazz.typeprototype.simd : null) || clazz.typeprototype.sisd;
 	},
 	
@@ -1289,7 +1289,7 @@ Mat4.typeprototype = {};
 				rm32 = ((zZeroToOne ? 1.0f : 2.0f) - e) * far;
 			} else {
 			*/
-			const zZeroToOne = false;
+			var zZeroToOne = false;
 			rm22 = (zZeroToOne ? far : far + near) / (near - far);
 			rm32 = (zZeroToOne ? far : far + far) * near / (near - far);
 			/*

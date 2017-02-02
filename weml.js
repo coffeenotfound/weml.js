@@ -401,10 +401,10 @@ Vec3.typeprototype = {};
 				o[2] = (this[2] * invlen) * min;
 			}
 			else if(lensq > max*max) {
-				var invlen = 1.0 / Math.sqrt(lensq);
-				o[0] = (this[0] * invlen) * max;
-				o[1] = (this[1] * invlen) * max;
-				o[2] = (this[2] * invlen) * max;
+				var invlenn = 1.0 / Math.sqrt(lensq);
+				o[0] = (this[0] * invlenn) * max;
+				o[1] = (this[1] * invlenn) * max;
+				o[2] = (this[2] * invlenn) * max;
 			}
 			return o;
 		},

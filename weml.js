@@ -358,6 +358,16 @@ Vec3.typeprototype = {};
 		},
 		
 		
+		/**
+		 * Adds the given vector and this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		add: function(a, o) {
 			o = o || this;
 			o[0] = this[0] + a[0];
@@ -365,6 +375,19 @@ Vec3.typeprototype = {};
 			o[2] = this[2] + a[2];
 			return o;
 		},
+		
+		/**
+		 * Adds the given x, y and z values and this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		addXYZ: function(x, y, z, o) {
 			o = o || this;
 			o[0] = this[0] + x;
@@ -372,12 +395,36 @@ Vec3.typeprototype = {};
 			o[2] = this[2] + z;
 			return o;
 		},
+		
+		/**
+		 * Adds the given scalar to each component of this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		addScalar: function(s, o) {
 			o = o || this;
 			this.addXYZ(s, s, s, o);
 			return o;
 		},
 		
+		
+		/**
+		 * Subtracts the given vector from this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		sub: function(a, o) {
 			o = o || this;
 			o[0] = this[0] - a[0];
@@ -385,6 +432,19 @@ Vec3.typeprototype = {};
 			o[2] = this[2] - a[2];
 			return o;
 		},
+		
+		/**
+		 * Subtracts the given values from this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		subXYZ: function(x, y, z, o) {
 			o = o || this;
 			o[0] = this[0] - x;
@@ -392,12 +452,34 @@ Vec3.typeprototype = {};
 			o[2] = this[2] - z;
 			return o;
 		},
+		
+		/**
+		 * Subtracts the given scalar from each component of this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} s
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		subScalar: function(s, o) {
 			o = o || this;
 			this.subXYZ(s, s, s, o);
 			return o;
 		},
 		
+		
+		/**
+		 * Multiplies the given vector and this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		mul: function(a, o) {
 			o = o || this;
 			o[0] = this[0] * a[0];
@@ -405,6 +487,19 @@ Vec3.typeprototype = {};
 			o[2] = this[2] * a[2];
 			return o;
 		},
+		
+		/**
+		 * Multiplies the given values and this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		mulXYZ: function(x, y, z, o) {
 			o = o || this;
 			o[0] = this[0] * x;
@@ -412,12 +507,34 @@ Vec3.typeprototype = {};
 			o[2] = this[2] * z;
 			return o;
 		},
+		
+		/**
+		 * Multiplies this vector by the given scalar and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} s
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		mulScalar: function(s, o) {
 			o = o || this;
 			this.mulXYZ(s, s, s, o);
 			return o;
 		},
 		
+		
+		/**
+		 * Divides this vector by the given vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		div: function(a, o) {
 			o = o || this;
 			o[0] = this[0] / a[0];
@@ -425,6 +542,19 @@ Vec3.typeprototype = {};
 			o[2] = this[2] / a[2];
 			return o;
 		},
+		
+		/**
+		 * Divides this vector by the given values and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		divXYZ: function(x, y, z, o) {
 			o = o || this;
 			o[0] = this[0] / x;
@@ -432,6 +562,17 @@ Vec3.typeprototype = {};
 			o[2] = this[2] / z;
 			return o;
 		},
+		
+		/**
+		 * Divides this vector by the given scalar and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec3
+		 * @instance
+		 * @function
+		 * @param {Number} s
+		 * @param {Vec3} [target=this]
+		 * @returns {Vec3} the target
+		 */
 		divScalar: function(s, o) {
 			o = o || this;
 			this.divXYZ(s, s, s, o);

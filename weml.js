@@ -416,7 +416,7 @@ Vec3.typeprototype = {};
 			o[2] = this[2] + (a[2] - this[2]) * t;
 			return o;
 		},
-		lerpXYZ: function(x, y, z, o) {
+		lerpXYZ: function(x, y, z, t, o) {
 			o = o || this;
 			o[0] = this[0] + (x - this[0]) * t;
 			o[1] = this[1] + (y - this[1]) * t;

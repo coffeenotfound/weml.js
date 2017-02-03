@@ -1459,7 +1459,7 @@ Vec4.typeprototype = {};
  * @param {Number} [y=0] - The initial y component of the vector
  * @param {Number} [z=0] - The initial z component of the vector
  * @param {Number} [w=1] - The initial w component of the vector
- * @returns {Vec4}
+ * @returns {Quat}
  */
 var Quat = function(x, y, z, w) {
 	var quat = weml.allocateArray(4);

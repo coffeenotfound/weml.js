@@ -520,6 +520,13 @@ Vec4.typeprototype = {};
 			this[3] = w;
 			return this;
 		},
+		setScalar: function(s) {
+			this[0] = s;
+			this[1] = s;
+			this[2] = s;
+			this[3] = s;
+			return this;
+		},
 		
 		put: function(a) {
 			a[0] = this[0];

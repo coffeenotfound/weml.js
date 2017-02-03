@@ -980,9 +980,19 @@ Vec3.typeprototype = {};
 	// select typeprototype
 	weml.selectTypeprototype(Vec3);
 })();
+ 
 
-
-// ### class Vec4 ###
+/**
+ * Constructs a new {@link Vec4} with the given values. The components of the vector are
+ * ordered as <code>(x, y, z, w)</code>. The given values default to the identity of a Vec4 which is
+ * <code>(0, 0, 0, 1)</code>.
+ * @class
+ * @param {Number} [x=0] - The initial x component of the vector
+ * @param {Number} [y=0] - The initial y component of the vector
+ * @param {Number} [z=0] - The initial z component of the vector
+ * @param {Number} [w=1] - The initial w component of the vector
+ * @returns {Vec4}
+ */
 var Vec4 = function(x, y, z, w) {
 	var vec = weml.allocateArray(4);
 	Object.assign(vec, Vec4.typeprototype._current);
@@ -1001,17 +1011,48 @@ Vec4.typeprototype = {};
 			return "Vec4[" + this[0] + ", " + this[1] + ", " + this[2] + ", " + this[3] + "]";
 		},
 		
+		/**
+		 * Returns a new {@link Vec4} that is a clone of this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @returns {Vec4}
+		 */
 		clone: function() {
 			return new Vec4(this[0], this[1], this[2], this[3]);
 		},
 		
+		/**
+		 * Sets this vector to identity <code>(0, 0, 0, 1)</code> and returns itself.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @returns {Vec4}
+		 */
 		identity: function() {
 			return this.set(0, 0, 0, 1);
 		},
+		
+		/**
+		 * Zeroes this vector and returns itself.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @returns {Vec4}
+		 */
 		zero: function() {
 			return this.set(0, 0, 0, 0);
 		},
 		
+		
+		/**
+		 * Sets this vector to be equal to the given vector and returns itself.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Vec4} a
+		 * @returns {Vec4} itself
+		 */
 		set: function(a) {
 			this[0] = a[0];
 			this[1] = a[1];
@@ -1019,6 +1060,18 @@ Vec4.typeprototype = {};
 			this[3] = a[3];
 			return this;
 		},
+		
+		/**
+		 * Sets this vector to the given values and returns itself.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Number} w
+		 * @returns {Vec4} itself
+		 */
 		setXYZW: function(x, y, z, w) {
 			this[0] = x;
 			this[1] = y;
@@ -1026,23 +1079,69 @@ Vec4.typeprototype = {};
 			this[3] = w;
 			return this;
 		},
+		
+		/**
+		 * Sets this vector's x component and returns itself.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @returns {Vec4} itself
+		 */
 		setX: function(x) {
 			this[0] = x;
 			return this;
 		},
+		
+		/**
+		 * Sets this vector's y component and returns itself.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} y
+		 * @returns {Vec4} itself
+		 */
 		setY: function(y) {
 			this[1] = y;
 			return this;
 		},
+		
+		/**
+		 * Sets this vector's z component and returns itself.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} z
+		 * @returns {Vec4} itself
+		 */
 		setZ: function(z) {
 			this[2] = z;
 			return this;
 		},
+		
+		/**
+		 * Sets this vector's w component and returns itself.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} w
+		 * @returns {Vec4} itself
+		 */
 		setW: function(w) {
 			this[3] = w;
 			return this;
 		},
 		
+		
+		/**
+		 * Puts this vector into the given vector or typed array and returns itself.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Vec4} a
+		 * @param {Number} [offset]
+		 * @returns {Vec4} itself
+		 */
 		put: function(a) {
 			a[0] = this[0];
 			a[1] = this[1];
@@ -1050,6 +1149,15 @@ Vec4.typeprototype = {};
 			a[3] = this[3];
 			return this;
 		},
+		
+		/**
+		 * Sets the given vector equal to this vector and returns the given vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Vec4} o
+		 * @returns {Vec4} the given vector <code>o</code>
+		 */
 		get: function(o) {
 			o[0] = this[0];
 			o[1] = this[1];
@@ -1057,19 +1165,62 @@ Vec4.typeprototype = {};
 			o[3] = this[3];
 			return o;
 		},
+		
+		/**
+		 * Returns this vector's x component.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @returns {Number} this vector's x component
+		 */
 		getX: function() {
 			return this[0];
 		},
+		
+		/**
+		 * Returns this vector's y component.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @returns {Number} this vector's y component
+		 */
 		getY: function() {
 			return this[1];
 		},
+		
+		/**
+		 * Returns this vector's z component.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @returns {Number} this vector's z component
+		 */
 		getZ: function() {
 			return this[2];
 		},
+		
+		/**
+		 * Returns this vector's w component.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @returns {Number} this vector's w component
+		 */
 		getW: function() {
 			return this[3];
 		},
 		
+		
+		/**
+		 * Adds the given vector and this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Vec4} a
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		add: function(a, o) {
 			o = o || this;
 			o[0] = this[0] + a[0];
@@ -1078,6 +1229,20 @@ Vec4.typeprototype = {};
 			o[3] = this[3] + a[3];
 			return o;
 		},
+		
+		/**
+		 * Adds the given x, y, z and w values and this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Number} w
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		addXYZW: function(x, y, z, w, o) {
 			o = o || this;
 			o[0] = this[0] + x;
@@ -1086,12 +1251,36 @@ Vec4.typeprototype = {};
 			o[3] = this[3] + w;
 			return o;
 		},
+		
+		/**
+		 * Adds the given scalar to each component of this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		addScalar: function(s, o) {
 			o = o || this;
 			this.addXYZW(s, s, s, s, o);
 			return o;
 		},
 		
+		
+		/**
+		 * Subtracts the given vector from this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Vec4} a
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		sub: function(a, o) {
 			o = o || this;
 			o[0] = this[0] - a[0];
@@ -1100,6 +1289,20 @@ Vec4.typeprototype = {};
 			o[3] = this[3] - a[3];
 			return o;
 		},
+		
+		/**
+		 * Subtracts the given values from this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Number} w
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		subXYZW: function(x, y, z, w, o) {
 			o = o || this;
 			o[0] = this[0] - x;
@@ -1108,12 +1311,34 @@ Vec4.typeprototype = {};
 			o[3] = this[3] - w;
 			return o;
 		},
+		
+		/**
+		 * Subtracts the given scalar from each component of this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} s
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		subScalar: function(s, o) {
 			o = o || this;
 			this.subXYZW(s, s, s, s, o);
 			return o;
 		},
 		
+		
+		/**
+		 * Multiplies the given vector and this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Vec4} a
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		mul: function(a, o) {
 			o = o || this;
 			o[0] = this[0] * a[0];
@@ -1122,6 +1347,20 @@ Vec4.typeprototype = {};
 			o[3] = this[3] * a[3];
 			return o;
 		},
+		
+		/**
+		 * Multiplies the given values and this vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Number} w
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		mulXYZW: function(x, y, z, w, o) {
 			o = o || this;
 			o[0] = this[0] * x;
@@ -1130,12 +1369,34 @@ Vec4.typeprototype = {};
 			o[3] = this[3] * w;
 			return o;
 		},
+		
+		/**
+		 * Multiplies this vector by the given scalar and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} s
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		mulScalar: function(s, o) {
 			o = o || this;
 			mulXYZW(s, s, s, s, o);
 			return o;
 		},
 		
+		
+		/**
+		 * Divides this vector by the given vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Vec4} a
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		div: function(a, o) {
 			o = o || this;
 			o[0] = this[0] / a[0];
@@ -1144,6 +1405,20 @@ Vec4.typeprototype = {};
 			o[3] = this[3] / a[3];
 			return o;
 		},
+		
+		/**
+		 * Divides this vector by the given vector and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Number} w
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		divXYZW: function(x, y, z, w, o) {
 			o = o || this;
 			o[0] = this[0] / x;
@@ -1152,6 +1427,17 @@ Vec4.typeprototype = {};
 			o[3] = this[3] / w;
 			return o;
 		},
+		
+		/**
+		 * Divides this vector by the given scalar and writes the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Vec4
+		 * @instance
+		 * @function
+		 * @param {Number} s
+		 * @param {Vec4} [target=this]
+		 * @returns {Vec4} the target
+		 */
 		divScalar: function(s, o) {
 			o = o || this;
 			this.divXYZW(s, s, s, s, o);

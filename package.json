@@ -4,7 +4,7 @@
   "scripts": {
     "build": "npm run lint && npm run compile-dist | npm run gen-docs",
 	"lint": "jshint --verbose \"weml.js\"",
-    "compile-dist": "uglifyjs \"weml.js\" -m -c -o \"dist/weml.min.js\" | uglifyjs \"weml.js\" -b -o \"dist/weml.js\"",
+    "compile-dist": "uglifyjs \"weml.js\" -m -c --comments -o \"dist/weml.min.js\" | uglifyjs \"weml.js\" -b --comments all -o \"dist/weml.js\"",
 	"gen-docs": "jsdoc \"weml.js\" -d \"docs\""
   },
   "repository": {

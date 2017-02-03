@@ -581,12 +581,12 @@ Vec3.typeprototype = {};
 		
 		muladd: function(a, b, o) {
 			o = o || this;
-			o.mul(a).add(b);
+			this.mul(a, o).add(b);
 			return o;
 		},
 		muladdXYZ: function(ax, ay, az, bx, by, bz, o) {
 			o = o || this;
-			o.mulXYZ(ax, ay, az).addXYZ(bx, by, bz);
+			this.mulXYZ(ax, ay, az, o).add(bx, by, bz);
 			return o;
 		},
 		
@@ -924,7 +924,7 @@ Vec3.typeprototype = {};
 			o[2] = this[2] + (a[2] - this[2]) * t;
 			return o;
 		},
-		
+    
 		/**
 		 * Linearly inerpolates this vector to the given vector by the given alpha and stores the result into the target vector and then returns the target.
 		 * The target vector defaults to this vector.
@@ -938,7 +938,7 @@ Vec3.typeprototype = {};
 		 * @param {Vec3} [target=this]
 		 * @returns {Vec3} the target
 		 */
-		lerpXYZ: function(x, y, z, o) {
+		lerpXYZ: function(x, y, z, t, o) {
 			o = o || this;
 			o[0] = this[0] + (x - this[0]) * t;
 			o[1] = this[1] + (y - this[1]) * t;

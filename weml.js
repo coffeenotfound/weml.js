@@ -49,7 +49,7 @@ var weml = {
 	},
 	
 	/**
-	 * Does a 'proper' mod (`((x % n) + n) % n`) so that the result will always be greater than or equal to zero.
+	 * Does a 'proper' mod (<code>((x % n) + n) % n</code>) so that the result will always be greater than or equal to zero.
 	 * @function
 	 * @param {number} x
 	 * @param {number} n

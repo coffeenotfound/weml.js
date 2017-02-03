@@ -1476,12 +1476,28 @@ Quat.typeprototype = {};
 // ## sisd implementation ##
 	Quat.typeprototype.sisd = {
 		
+		/**
+		 * Returns a new {@link Quat} that is a clone of this quaternion.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @returns {Quat}
+		 */
 		clone: function() {
 			var quat = new Quat();
 			quat.set(this);
 			return quat;
 		},
 		
+		
+		/**
+		 * Sets this quaternion to be equal to the given quaternion and returns itself.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Quat} a
+		 * @returns {Quat} itself
+		 */
 		set: function(a) {
 			this[0] = a[0];
 			this[1] = a[1];
@@ -1489,6 +1505,18 @@ Quat.typeprototype = {};
 			this[3] = a[3];
 			return this;
 		},
+		
+		/**
+		 * Sets this quaternion to the given values and returns itself.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Number} w
+		 * @returns {Quat} itself
+		 */
 		setXYZW: function(x, y, z, w) {
 			this[0] = x;
 			this[1] = y;
@@ -1497,6 +1525,14 @@ Quat.typeprototype = {};
 			return this;
 		},
 		
+		
+		/**
+		 * Sets this quaternion to identity <code>(0, 0, 0, 1)</code> and returns itself.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @returns {Quat} itself
+		 */
 		identity: function() {
 			this[0] = 0;
 			this[1] = 0;
@@ -1504,6 +1540,14 @@ Quat.typeprototype = {};
 			this[3] = 1;
 			return this;
 		},
+		
+		/**
+		 * Zeroes this quaternion to <code>(0, 0, 0, 0)</code> and returns itself.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @returns {Quat} itself
+		 */
 		zero: function() {
 			this[0] = 0;
 			this[1] = 0;
@@ -1512,6 +1556,16 @@ Quat.typeprototype = {};
 			return this;
 		},
 		
+		/**
+		 * (Post-)multiplies the given quaternion with this quaternion and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Quat} a
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		mul: function(a, o) {
 			o = o || this;
 			// post-multiply
@@ -1525,6 +1579,20 @@ Quat.typeprototype = {};
 			o[3] = nw;
 			return o;
 		},
+		
+		/**
+		 * (Post-)multiplies the given quaternion with this quaternion and stores the result into the target vector and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Quat} x
+		 * @param {Quat} y
+		 * @param {Quat} z
+		 * @param {Quat} w
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		mulXYZW: function(x, y, z, w, o) {
 			o = o || this;
 			// post-multiply
@@ -1538,6 +1606,20 @@ Quat.typeprototype = {};
 			o[3] = nw;
 			return o;
 		},
+		
+		/**
+		 * (Post-)multiplies the given quaternion with this quaternion and stores the result into the target quaternion and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Quat} x
+		 * @param {Quat} y
+		 * @param {Quat} z
+		 * @param {Quat} w
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		mulScalar: function(s, o) {
 			o = o || this;
 			// post-multiply
@@ -1552,6 +1634,16 @@ Quat.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * Normalizes this quaternion and stores the result into the target quaternion and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		normalize: function(o) {
 			o = o || this;
 			var invMag = 1.0 / Math.sqrt(this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);
@@ -1562,6 +1654,16 @@ Quat.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * Inverts this quaternion and stores the result into the target quaternion and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		invert: function(o) {
 			o = o || this;
 			var invNorm = 1.0 / this.norm();
@@ -1572,6 +1674,15 @@ Quat.typeprototype = {};
 			return o;
 		},
 		
+		/**
+		 * Calculates the conjugate of this quaternion and stores the result into the target quaternion and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		conjugate: function(o) {
 			o = o || this;
 			o[0] = -this[0];
@@ -1581,10 +1692,29 @@ Quat.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * Calculates the norm of this quaternion and returns it.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @returns {Number} the result
+		 */
 		norm: function() {
 			return (this[0]*this[0] + this[1]*this[1] + this[2]*this[2] + this[3]*this[3]);
 		},
 		
+		
+		/**
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Number} radx
+		 * @param {Number} rady
+		 * @param {Number} radz
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		rotateXYZ: function(radx, rady, radz, o) {
 			o = o || this;
 			var sx = Math.sin(radx * 0.5);
@@ -1615,6 +1745,17 @@ Quat.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Number} radx
+		 * @param {Number} rady
+		 * @param {Number} radz
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		rotateLocalXYZ: function(radx, rady, radz, o) {
 			o = o || this;
 			var thetaX = radx * 0.5;
@@ -1647,6 +1788,17 @@ Quat.typeprototype = {};
 			return o;
 		},
 		
+		/**
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Number} axisx
+		 * @param {Number} axisy
+		 * @param {Number} axisz
+		 * @param {Number} angle
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		rotateAroundAxisXYZ: function(axisx, axisy, axisz, angle, o) {
 			o = o || this;
 			var hangle = angle * 0.5;
@@ -1674,6 +1826,15 @@ Quat.typeprototype = {};
 			
 		},
 		
+		/**
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Vec3} eye
+		 * @param {Vec3} center
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		rotateTo: function(eye, center, o) {
 			o = o || this;
 			var x = eye[1] * center[2] - eye[2] * center[1];
@@ -1718,6 +1879,16 @@ Quat.typeprototype = {};
 		},
 		*/
 		
+		/**
+		 * Calculates the difference between this quaternion and the given quaternion and stores the result into the target quaternion and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Quat} a
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		diff: function(a, o) {
 			o = o || this;
 			var invNorm = 1.0 / this.norm();
@@ -1737,6 +1908,17 @@ Quat.typeprototype = {};
 			return o;
 		},
 		
+		/**
+		 * Does a spherical interpolation of this quaterion to the given quaternion over the given alpha value and stores the result into the target quaternion and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Quat} a
+		 * @param {Number} alpha
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		slerp: function(a, alpha, o) {
 			o = o || this;
 			var cosom = this[0] * a[0] + this[1] * a[1] + this[2] * a[2] + this[3] * a[3];
@@ -1766,10 +1948,33 @@ Quat.typeprototype = {};
 			return o;
 		},
 		
+		/**
+		 * <b>Not implemented</b>
+		 * Does a linear interpolation of this quaterion to the given quaternion over the given alpha value and stores the result into the target quaternion and then returns the target.
+		 * The target vector defaults to this vector.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Quat} a
+		 * @param {Number} alpha
+		 * @param {Quat} [target=this]
+		 * @returns {Quat} the target
+		 */
 		lerp: function(a, alpha, o) {
 			
 		},
 		
+		
+		/**
+		 * Transforms (rotates) the given vector by this quaternion and stores the result into the target vector and then returns the target.
+		 * The target defaults to the given vector.
+		 * @memberOf Quat
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @param {Vec3} [target=a]
+		 * @returns {Vec3} the target
+		 */
 		transformVec3: function(a, o) {
 			// I hope this, finally, is the correct formula (https://blog.molecular-matters.com/2013/05/24/a-faster-quaternion-vector-multiplication/)
 			//	t = 2 * cross(q.xyz, v)

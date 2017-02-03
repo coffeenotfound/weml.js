@@ -1450,7 +1450,17 @@ Vec4.typeprototype = {};
 })();
 
 
-// ### class Quat ###
+/**
+ * Constructs a new {@link Quat} with the given values. The components of the quaternion are
+ * ordered as <code>(x, y, z, w)</code>. The given values default to the identity of a {@link Quat} which is
+ * <code>(0, 0, 0, 1)</code>.
+ * @class
+ * @param {Number} [x=0] - The initial x component of the vector
+ * @param {Number} [y=0] - The initial y component of the vector
+ * @param {Number} [z=0] - The initial z component of the vector
+ * @param {Number} [w=1] - The initial w component of the vector
+ * @returns {Vec4}
+ */
 var Quat = function(x, y, z, w) {
 	var quat = weml.allocateArray(4);
 	Object.assign(quat, Quat.typeprototype._current);

@@ -346,7 +346,7 @@ Vec3.typeprototype = {};
 		 * @instance
 		 * @function
 		 * @param {Vec3} a
-		 * @param {Number} offset
+		 * @param {Number} [offset]
 		 * @returns {Vec3} itself
 		 */
 		put: function(a, offset) {

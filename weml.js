@@ -2020,7 +2020,12 @@ Quat.typeprototype = {};
 })();
 
 
-// ### class Mat4 ###
+/**
+ * Constructs a new {@link Mat4} with the given values sourced from a typed array.
+ * @class
+ * @param {Float32Array} [values] - The initial x component of the vector
+ * @returns {Vec3}
+ */
 var Mat4 = function(values) {
 	var mat = weml.allocateArray(16);
 	Object.assign(mat, Mat4.typeprototype._current);
@@ -2055,10 +2060,29 @@ Mat4.typeprototype = {};
 			return "Mat4[" + this[0] + ", " + this[1] + "..." + this[14] + ", " + this[15] + "]";
 		},
 		
+		/**
+		 * Returns a new matrix with the same values as this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @returns {Mat4}
+		 */
 		clone: function() {
 			return new Mat4(this);
 		},
 		
+		/**
+		 * Sets this matrix to identity and returns itself.
+		 * Identity:<br>
+		 * <code>(1, 0, 0, 0)</code><br>
+		 * <code>(0, 1, 0, 0)</code><br>
+		 * <code>(0, 0, 1, 0)</code><br>
+		 * <code>(0, 0, 0, 1)</code>
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @returns {Mat4} itself
+		 */
 		identity: function() {
 			this.fill(0);
 			this[0] = 1;
@@ -2067,11 +2091,28 @@ Mat4.typeprototype = {};
 			this[15] = 1;
 			return this;
 		},
+		
+		/**
+		 * Zeroes this matrix to all zero and returns itself.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @returns {Mat4} itself
+		 */
 		zero: function() {
 			this.fill(0);
 			return this;
 		},
 		
+		
+		/**
+		 * Sets this matrix to be equal with the given matrix and returns itself.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Mat4} a
+		 * @returns {Mat4} itself
+		 */
 		set: function(a) {
 			this[ 0] = a[ 0];
 			this[ 1] = a[ 1];
@@ -2092,15 +2133,44 @@ Mat4.typeprototype = {};
 			return this;
 		},
 		
+		
+		/**
+		 * Sets the given matrix equal to this matrix and returns the given matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Mat4} o
+		 * @returns {Mat4} the given matrix <code>o</code>
+		 */
 		get: function(o) {
 			o.set(this);
 			return o;
 		},
+		
+		/**
+		 * Puts this matrix into the given matrix or typed array and returns itself.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Mat4} a
+		 * @returns {Mat4} itself
+		 */
 		put: function(a) {
 			a.set(this);
 			return this;
 		},
 		
+		
+		/**
+		 * Multiplies this matrix and the given matrix and stores the result into the target matrix and then returns the target.
+		 * The target matrix defaults to this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Mat4} a
+		 * @param {Mat4} [target=this]
+		 * @returns {Mat4} the target
+		 */
 		mul: function(a, o) {
 			o = o || this;
 			var nm00 = this[ 0] * a[ 0] + this[ 4] * a[ 1] + this[ 8] * a[ 2] + this[12] * a[ 3];
@@ -2159,6 +2229,16 @@ Mat4.typeprototype = {};
 			*/
 		},
 		
+		
+		/**
+		 * Transposes this matrix and stores the result into the target matrix and then returns the target.
+		 * The target matrix defaults to this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Mat4} [target=this]
+		 * @returns {Mat4} the target
+		 */
 		transpose: function(o) {
 			o = o || this;
 			var nm00 = this[ 0];
@@ -2195,6 +2275,16 @@ Mat4.typeprototype = {};
 			o[15] = nm33;
 			return o;
 		},
+		
+		/**
+		 * Inverts this matrix and stores the result into the target matrix and then returns the target.
+		 * The target matrix defaults to this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Mat4} [target=this]
+		 * @returns {Mat4} the target
+		 */
 		invert: function(o) {
 			o = o || this;
 			var a = this[ 0] * this[ 5] - this[ 1] * this[ 4];
@@ -2247,6 +2337,17 @@ Mat4.typeprototype = {};
 			return o;
 		},
 		
+		/**
+		 * Does a translation transform on this matrix and stores the result into the target matrix and then returns the target.
+		 * The translation is multiplied on top of this matrix, so you may need to reset it to identity first.
+		 * The target matrix defaults to this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @param {Mat4} [target=this]
+		 * @returns {Mat4} the target
+		 */
 		translateVec3: function(a, o) {
 			o = o || this;
 			o[12] = this[ 0] * a[0] + this[ 4] * a[1] + this[ 8] * a[2] + this[12];
@@ -2255,6 +2356,20 @@ Mat4.typeprototype = {};
 			o[15] = this[ 3] * a[0] + this[ 7] * a[1] + this[11] * a[2] + this[15];
 			return o;
 		},
+		
+		/**
+		 * Does a translation transform on this matrix and stores the result into the target matrix and then returns the target.
+		 * The translation is multiplied on top of this matrix, so you may need to reset it to identity first.
+		 * The target matrix defaults to this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Mat4} [target=this]
+		 * @returns {Mat4} the target
+		 */
 		translateXYZ: function(x, y, z, o) {
 			o = o || this;
 			o[12] = this[ 0] * x + this[ 4] * y + this[ 8] * z + this[12];
@@ -2264,6 +2379,15 @@ Mat4.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} a
+		 * @param {Mat4} [target=this]
+		 * @returns {Mat4} the target
+		 */
 		applyRotationQuat: function(a, o) {
 			o = o || this;
 			var w2 = a[3] * a[3];
@@ -2312,6 +2436,15 @@ Mat4.typeprototype = {};
 			return o;
 		},
 		
+		
+		/**
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} a
+		 * @param {Mat4} [target=this]
+		 * @returns {Mat4} the target
+		 */
 		perspective: function(fovy, aspect, near, far, o) {
 			o = o || this;
 			var h = Math.tan(fovy * 0.5);
@@ -2365,6 +2498,14 @@ Mat4.typeprototype = {};
 			return o;
 		},
 		
+		/**
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} a
+		 * @param {Mat4} [target=this]
+		 * @returns {Mat4} the target
+		 */
 		ortho: function(left, right, bottom, top, near, far, o) {
 			o = o || this;
 			

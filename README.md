@@ -47,7 +47,7 @@ Then, the mutated type that holds the result, being either the called object or 
 
 
 ## Documentation
-Doesn't really exist yet, sorry
+Docs can be found [here](https://coffeenotfound.github.io/weml.js/). (or in the [`docs` folder](https://github.com/coffeenotfound/weml.js/tree/master/docs))
 
 
 ## Vectors

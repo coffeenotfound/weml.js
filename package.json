@@ -5,7 +5,7 @@
     "build": "npm run lint && npm run compile-dist | npm run gen-docs",
     "lint": "jshint --verbose \"weml.js\"",
     "compile-dist": "uglifyjs \"weml.js\" -m -c --comments -o \"dist/weml.min.js\" | uglifyjs \"weml.js\" -b --comments all -o \"dist/weml.js\"",
-    "gen-docs": "jsdoc \"weml.js\" -d \"docs\" -c \"jsdoc.conf\""
+    "gen-docs": "jsdoc -d \"docs\" -c \"jsdoc.conf\" --readme \"README.md\" \"weml.js\""
   },
   "repository": {
     "type": "git",

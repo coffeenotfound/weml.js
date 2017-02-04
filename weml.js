@@ -2435,9 +2435,9 @@ Mat4.typeprototype = {};
 		 */
 		setTranslationXYZ: function(x, y, z) {
 			this.identity();
-			this[12] = a[0];
-			this[13] = a[1];
-			this[14] = a[2];
+			this[12] = x;
+			this[13] = y;
+			this[14] = z;
 			return this;
 		},
 		

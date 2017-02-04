@@ -2037,6 +2037,7 @@ var Mat4 = function(values) {
 	var mat = weml.allocateArray(16);
 	Object.assign(mat, Mat4.typeprototype._current);
 	if(values) mat.set(values);
+	else mat.identity();
 	return mat;
 };
 

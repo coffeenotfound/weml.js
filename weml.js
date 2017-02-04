@@ -2345,8 +2345,7 @@ Mat4.typeprototype = {};
 		},
 		
 		/**
-		 * Does a translation transform on this matrix and stores the result into the target matrix and then returns the target.
-		 * The translation is multiplied on top of this matrix, so you may need to reset it to identity first.
+		 * Applies a translation transform by the given vector to this matrix and stores the result into the target matrix and then returns the target.
 		 * The target matrix defaults to this matrix.
 		 * @memberOf Mat4
 		 * @instance
@@ -2355,7 +2354,7 @@ Mat4.typeprototype = {};
 		 * @param {Mat4} [target=this]
 		 * @returns {Mat4} the target
 		 */
-		translateVec3: function(a, o) {
+		applyTranslationVec3: function(a, o) {
 			o = o || this;
 			o[12] = this[ 0] * a[0] + this[ 4] * a[1] + this[ 8] * a[2] + this[12];
 			o[13] = this[ 1] * a[0] + this[ 5] * a[1] + this[ 9] * a[2] + this[13];
@@ -2365,8 +2364,7 @@ Mat4.typeprototype = {};
 		},
 		
 		/**
-		 * Does a translation transform on this matrix and stores the result into the target matrix and then returns the target.
-		 * The translation is multiplied on top of this matrix, so you may need to reset it to identity first.
+		 * Applies a translation transform by the given vector to this matrix and stores the result into the target matrix and then returns the target.
 		 * The target matrix defaults to this matrix.
 		 * @memberOf Mat4
 		 * @instance
@@ -2377,7 +2375,7 @@ Mat4.typeprototype = {};
 		 * @param {Mat4} [target=this]
 		 * @returns {Mat4} the target
 		 */
-		translateXYZ: function(x, y, z, o) {
+		applyTranslationXYZ: function(x, y, z, o) {
 			o = o || this;
 			o[12] = this[ 0] * x + this[ 4] * y + this[ 8] * z + this[12];
 			o[13] = this[ 1] * x + this[ 5] * y + this[ 9] * z + this[13];
@@ -2386,12 +2384,47 @@ Mat4.typeprototype = {};
 			return o;
 		},
 		
-		
 		/**
+		 * Sets this matrix to the translation transform described by the given vector and then returns itself.
 		 * @memberOf Mat4
 		 * @instance
 		 * @function
-		 * @param {Number} a
+		 * @param {Vec3} a
+		 * @returns {Mat4} itself
+		 */
+		setTranslationVec3: function(a) {
+			this.identity();
+			this[12] = a[0];
+			this[13] = a[1];
+			this[14] = a[2];
+			return this;
+		},
+		
+		/**
+		 * Sets this matrix to the translation transform described by the given vector and then returns itself.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @returns {Mat4} itself
+		 */
+		setTranslationXYZ: function(x, y, z) {
+			this.identity();
+			this[12] = a[0];
+			this[13] = a[1];
+			this[14] = a[2];
+			return this;
+		},
+		
+		/**
+		 * Applies a rotation transform described by the given quaternion to this matrix and stores the result into the target matrix and then returns the target.
+		 * The target matrix defaults to this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Quat} a
 		 * @param {Mat4} [target=this]
 		 * @returns {Mat4} the target
 		 */
@@ -2443,16 +2476,163 @@ Mat4.typeprototype = {};
 			return o;
 		},
 		
-		
 		/**
+		 * Sets this matrix to the rotation transform described by the given quaternion and then returns itself.
 		 * @memberOf Mat4
 		 * @instance
 		 * @function
-		 * @param {Number} a
+		 * @param {Quat} a
+		 * @returns {Mat4} itself
+		 */
+		setRotationQuat: function(a) {
+			var w2 = a[3] * a[3];
+			var x2 = a[0] * a[0];
+			var y2 = a[1] * a[1];
+			var z2 = a[2] * a[2];
+			var zw = a[2] * a[3];
+			var xy = a[0] * a[1];
+			var xz = a[0] * a[2];
+			var yw = a[1] * a[3];
+			var yz = a[1] * a[2];
+			var xw = a[0] * a[3];
+			this[ 0] = w2 + x2 - z2 - y2;
+			this[ 1] = xy + zw + zw + xy;
+			this[ 2] = xz - yw + xz - yw;
+			this[ 3] = 0.0;
+			this[ 4] = -zw + xy - zw + xy;
+			this[ 5] = y2 - z2 + w2 - x2;
+			this[ 6] = yz + yz + xw + xw;
+			this[ 7] = 0.0;
+			this[ 8] = yw + xz + xz + yw;
+			this[ 9] = yz + yz - xw - xw;
+			this[10] = z2 - y2 - x2 + w2;
+			
+			this[11] = 0.0;
+			
+			this[12] = 0.0;
+			this[13] = 0.0;
+			this[14] = 0.0;
+			this[15] = 1.0;
+			return this;
+		},
+		
+		/**
+		 * Applies a scale transform described by the given vector to this matrix and stores the result into the target matrix and then returns the target.
+		 * The target matrix defaults to this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
 		 * @param {Mat4} [target=this]
 		 * @returns {Mat4} the target
 		 */
-		perspective: function(fovy, aspect, near, far, o) {
+		applyScaleVec3: function(a, o) {
+			return this.applyScaleXYZ(a[0], a[1], a[2], o);
+		},
+		
+		/**
+		 * Applies a scale transform described by the given vector to this matrix and stores the result into the target matrix and then returns the target.
+		 * The target matrix defaults to this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @param {Mat4} [target=this]
+		 * @returns {Mat4} the target
+		 */
+		applyScaleXYZ: function(x, y, z, o) {
+			o = o || this;
+			o[ 0] = this[ 0] * x;
+			o[ 1] = this[ 1] * x;
+			o[ 2] = this[ 2] * x;
+			o[ 3] = this[ 3] * x;
+			o[ 4] = this[ 4] * y;
+			o[ 5] = this[ 5] * y;
+			o[ 6] = this[ 6] * y;
+			o[ 7] = this[ 7] * y;
+			o[ 8] = this[ 8] * z;
+			o[ 9] = this[ 9] * z;
+			o[10] = this[10] * z;
+			o[11] = this[11] * z;
+			o[12] = this[12];
+			o[13] = this[13];
+			o[14] = this[14];
+			o[15] = this[15];
+			return o;
+		},
+		
+		/**
+		 * Applies a uniform scale transform described by the given scalar to this matrix and stores the result into the target matrix and then returns the target.
+		 * The target matrix defaults to this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} s
+		 * @param {Mat4} [target=this]
+		 * @returns {Mat4} the target
+		 */
+		applyScaleScalar: function(s, o) {
+			return this.applyScaleXYZ(s, s, s, o);
+		},
+		
+		/**
+		 * Sets this matrix to the scale transform described by the given vector and then returns itself.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Vec3} a
+		 * @returns {Mat4} itself
+		 */
+		setScaleVec3: function(a) {
+			return this.setScaleXYZ(a[0], a[1], a[2]);
+		},
+		
+		/**
+		 * Sets this matrix to the scale transform described by the given vector and then returns itself.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} z
+		 * @returns {Mat4} itself
+		 */
+		setScaleXYZ: function(x, y, z) {
+			this.identity();
+			this[ 0] = x;
+			this[ 5] = y;
+			this[10] = z;
+			return this;
+		},
+		
+		/**
+		 * Sets this matrix to the scale transform described by the given scalar and then returns itself.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} s
+		 * @returns {Mat4} itself
+		 */
+		setScaleScalar: function(s) {
+			return this.setScaleXYZ(s, s, s);
+		},
+		
+		/**
+		 * Applies a perspective transform described by the given values to this matrix and stores the result into the target matrix and then returns the target.
+		 * The target matrix defaults to this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} fovy
+		 * @param {Number} aspect
+		 * @param {Number} near
+		 * @param {Number} far
+		 * @param {Mat4} [target=this]
+		 * @returns {Mat4} the target
+		 */
+		applyPerspective: function(fovy, aspect, near, far, o) {
 			o = o || this;
 			var h = Math.tan(fovy * 0.5);
 			
@@ -2506,14 +2686,38 @@ Mat4.typeprototype = {};
 		},
 		
 		/**
+		 * Sets this matrix to the perspective transform described by the given values and then returns itself.
 		 * @memberOf Mat4
 		 * @instance
 		 * @function
-		 * @param {Number} a
+		 * @param {Number} fovy
+		 * @param {Number} aspect
+		 * @param {Number} near
+		 * @param {Number} far
+		 * @returns {Mat4} itself
+		 */
+		setPerspective: function(fovy, aspect, near, far) {
+			this.identity();
+			this.applyPerspective(fovy, aspect, near, far, this);
+			return this;
+		},
+		
+		/**
+		 * Applies an ortho transform described by the given values to this matrix and stores the result into the target matrix and then returns the target.
+		 * The target matrix defaults to this matrix.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} left
+		 * @param {Number} right
+		 * @param {Number} bottom
+		 * @param {Number} top
+		 * @param {Number} near
+		 * @param {Number} far
 		 * @param {Mat4} [target=this]
 		 * @returns {Mat4} the target
 		 */
-		ortho: function(left, right, bottom, top, near, far, o) {
+		applyOrtho: function(left, right, bottom, top, near, far, o) {
 			o = o || this;
 			
 			// calculate right matrix elements
@@ -2544,6 +2748,25 @@ Mat4.typeprototype = {};
 			o[11] = this[11] * rm22;
 			
 			return o;
+		},
+		
+		/**
+		 * Sets this matrix to an ortho transform described by the given values and then returns itself.
+		 * @memberOf Mat4
+		 * @instance
+		 * @function
+		 * @param {Number} left
+		 * @param {Number} right
+		 * @param {Number} bottom
+		 * @param {Number} top
+		 * @param {Number} near
+		 * @param {Number} far
+		 * @returns {Mat4} itself
+		 */
+		setOrtho: function(left, right, bottom, top, near, far) {
+			this.identity();
+			this.applyOrtho(left, right, bottom, top, near, far, this);
+			return this;
 		},
 	};
 	

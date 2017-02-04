@@ -2124,7 +2124,7 @@ Mat4.typeprototype = {};
 		 * @returns {Mat4} itself
 		 */
 		set: function(a, offset) {
-			if(offset == 0) {
+			if(offset === 0) {
 				this[ 0] = a[ 0];
 				this[ 1] = a[ 1];
 				this[ 2] = a[ 2];

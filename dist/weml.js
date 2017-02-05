@@ -111,24 +111,6 @@ var weml = {
     }
 };
 
-// DEBUG: WEML TEST
-$(function() {
-    console.group("weml.js test");
-    var a = new Vec3(1, 2, 3);
-    var b = new Vec3(10, 10, 10);
-    var c = new Vec3(-5, -5, -5);
-    console.log("a =", a);
-    console.log("b =", b);
-    console.log("c =", c);
-    console.log("");
-    console.log("a.put(b).mul(c).mulScalar(2).get(c).addXYZ(1,1,1) =", a.put(b).mul(c).mulScalar(2).get(c).addXYZ(1, 1, 1));
-    console.log("");
-    console.log("a =", a);
-    console.log("b =", b);
-    console.log("c =", c);
-    console.groupEnd();
-});
-
 /**
  * Constructs a new {@link Vec3} with the given values.
  * @class

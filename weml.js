@@ -945,6 +945,10 @@ Vec3.typeprototype = {};
 			o[2] = this[2] + (z - this[2]) * t;
 			return o;
 		},
+		
+		
+		
+		
 	};
 	
 // ## simd implementation ##
@@ -2035,7 +2039,7 @@ Mat4.typeprototype = {};
 		// 03 07 11 15
 		//
 		// find:
-		// (?>(m00)|(m01)|(m02)|(m03)|(m10)|(m11)|(m12)|(m13)|(m20)|(m21)|(m22)|(m23)|(m30)|(m31)|(m32)|(m33))
+		// [^rn](?>(m00)|(m01)|(m02)|(m03)|(m10)|(m11)|(m12)|(m13)|(m20)|(m21)|(m22)|(m23)|(m30)|(m31)|(m32)|(m33))
 		// replace:
 		//	a(?1\[ 0\])(?2\[ 1\])(?3\[ 2\])(?4\[ 3\])(?5\[ 4\])(?6\[ 5\])(?7\[ 6\])(?8\[ 7\])(?9\[ 8\])(?10\[ 9\])(?11\[10\])(?12\[11\])(?13\[12\])(?14\[13\])(?15\[14\])(?16\[15\])
 		//
@@ -2515,6 +2519,139 @@ Mat4.typeprototype = {};
 			this[15] = 1.0;
 			return this;
 		},
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		applyRotationX: function(ang, o) {
+			o = o || this;
+			var sin, cos;
+			sin = Math.sin(ang);
+			cos = Math.cos(ang);
+			var rm11 = cos;
+			var rm12 = sin;
+			var rm21 = -sin;
+			var rm22 = cos;
+			
+			var nm10 = this[ 4] * rm11 + this[ 8] * rm12;
+			var nm11 = this[ 5] * rm11 + this[ 9] * rm12;
+			var nm12 = this[ 6] * rm11 + this[10] * rm12;
+			var nm13 = this[ 7] * rm11 + this[11] * rm12;
+			
+			o[ 8] = this[ 4] * rm21 + this[ 8] * rm22;
+			o[ 9] = this[ 5] * rm21 + this[ 9] * rm22;
+			o[10] = this[ 6] * rm21 + this[10] * rm22;
+			o[11] = this[ 7] * rm21 + this[11] * rm22;
+			
+			o[ 4] = nm10;
+			o[ 5] = nm11;
+			o[ 6] = nm12;
+			o[ 7] = nm13;
+			o[ 0] = this[ 0];
+			o[ 1] = this[ 1];
+			o[ 2] = this[ 2];
+			o[ 3] = this[ 3];
+			o[12] = this[12];
+			o[13] = this[13];
+			o[14] = this[14];
+			o[15] = this[15];
+			return o;
+		},
+		
+		applyRotationY: function(ang, o) {
+			o = o || this;
+			var cos, sin;
+			sin = Math.sin(ang);
+			cos = Math.cos(ang);
+			var rm00 = cos;
+			var rm02 = -sin;
+			var rm20 = sin;
+			var rm22 = cos;
+			
+			var nm00 = this[ 0] * rm00 + this[ 8] * rm02;
+			var nm01 = this[ 1] * rm00 + this[ 9] * rm02;
+			var nm02 = this[ 2] * rm00 + this[10] * rm02;
+			var nm03 = this[ 3] * rm00 + this[11] * rm02;
+			o[ 8] = this[ 0] * rm20 + this[ 8] * rm22;
+			o[ 9] = this[ 1] * rm20 + this[ 9] * rm22;
+			o[10] = this[ 2] * rm20 + this[10] * rm22;
+			o[11] = this[ 3] * rm20 + this[11] * rm22;
+			
+			o[ 0] = nm00;
+			o[ 1] = nm01;
+			o[ 2] = nm02;
+			o[ 3] = nm03;
+			o[ 4] = this[ 4];
+			o[ 5] = this[ 5];
+			o[ 6] = this[ 6];
+			o[ 7] = this[ 7];
+			o[12] = this[12];
+			o[13] = this[13];
+			o[14] = this[14];
+			o[15] = this[15];
+			return o;
+		},
+		
+		
+		
+		applyTranslationLocalXYZ: function(x, y, z, o) {
+			o = o || this;
+			var nm00 = this[ 0] + x * this[ 3];
+			var nm01 = this[ 1] + y * this[ 3];
+			var nm02 = this[ 2] + z * this[ 3];
+			var nm03 = this[ 3];
+			var nm10 = this[ 4] + x * this[ 7];
+			var nm11 = this[ 5] + y * this[ 7];
+			var nm12 = this[ 6] + z * this[ 7];
+			var nm13 = this[ 7];
+			var nm20 = this[ 8] + x * this[11];
+			var nm21 = this[ 9] + y * this[11];
+			var nm22 = this[10] + z * this[11];
+			var nm23 = this[11];
+			var nm30 = this[12] + x * this[15];
+			var nm31 = this[13] + y * this[15];
+			var nm32 = this[14] + z * this[15];
+			var nm33 = this[15];
+			o[ 0] = nm00;
+			o[ 1] = nm01;
+			o[ 2] = nm02;
+			o[ 3] = nm03;
+			o[ 4] = nm10;
+			o[ 5] = nm11;
+			o[ 6] = nm12;
+			o[ 7] = nm13;
+			o[ 8] = nm20;
+			o[ 9] = nm21;
+			o[10] = nm22;
+			o[11] = nm23;
+			o[12] = nm30;
+			o[13] = nm31;
+			o[14] = nm32;
+			o[15] = nm33;
+			return o;
+		},
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		/**
 		 * Applies a scale transform described by the given vector to this matrix and stores the result into the target matrix and then returns the target.
